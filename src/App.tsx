@@ -246,7 +246,7 @@ function App() {
             <img src={logo} className="w-auto h-12 object-contain" />
           </div>
           <p className="text-gray-400 mb-4">
-            &copy; 2025 SUN. Todos os direitos reservados.
+            &copy; 2025 Brenda Figueira. Todos os direitos reservados.
           </p>
         </div>
       </footer>
