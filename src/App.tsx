@@ -13,26 +13,15 @@ function App() {
     <div className="min-h-screen bg-[#FBF5DF]">
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-2">
-              <img src={logo} className="w-16 h-16 object-contain" />
-            </div>
+          <div className="flex items-center justify-center h-16">
             <nav className="hidden md:block">
-              <ul className="flex space-x-8">
+              <ul className="flex items-center justify-center space-x-12">
                 <li>
                   <a
-                                                                                href="#sobre"
+                    href="#sobre"
                     className="text-gray-700 hover:text-[#3D618A] transition-colors duration-200 font-medium"
                   >
                     Sobre
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#servicos"
-                    className="text-gray-700 hover:text-[#3D618A] transition-colors duration-200 font-medium"
-                  >
-                    Como Funciona?
                   </a>
                 </li>
                 <li>
@@ -81,100 +70,18 @@ function App() {
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full"></div>
             </div>
-            <article className="bg-white rounded-2xl shadow-lg p-8 md:p-12 hover:shadow-xl transition-shadow duration-300">
-              <p className="text-lg text-gray-700 leading-relaxed">
-                SUN é uma iniciativa que oferece suporte para quem está
-                enfrentando desafios da vida, como ansiedade, depressão ou falta
-                de organização. Não se trata de "superar" esses problemas de
-                forma definitiva, mas sim de criar momentos de progresso
-                contínuo em direção a uma vida mais plena e equilibrada.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section
-          id="servicos"
-          className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50"
-        >
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Como Funciona?
-              </h2>
-              <div className="w-20 h-1 bg-[#EBE1D7] mx-auto rounded-full"></div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <article className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 bg-[#E9D7A5] rounded-xl flex items-center justify-center mb-6">
-                  <Target className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Desafios
-                </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  O SUN te incentiva a criar desafios para a semana. Coisas que
-                  estão difíceis de fazer podem ficar mais fáceis quando se tem
-                  um desafio a se cumprir.
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+              <div className="w-full md:w-1/3 flex justify-center">
+                <img src={logo} className="w-48 h-48 md:w-64 md:h-64 object-contain" alt="Logo Sun" />
+              </div>
+              <article className="w-full md:w-2/3 bg-white rounded-2xl shadow-lg p-8 md:p-12 hover:shadow-xl transition-shadow duration-300">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  SUN é uma iniciativa que oferece suporte para quem está
+                  enfrentando desafios da vida, como ansiedade, depressão ou falta
+                  de organização. Não se trata de "superar" esses problemas de
+                  forma definitiva, mas sim de criar momentos de progresso
+                  contínuo em direção a uma vida mais plena e equilibrada.
                 </p>
-              </article>
-
-              <article className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 bg-[#E9D7A5] rounded-xl flex items-center justify-center mb-6">
-                  <Calendar className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Planejamento Semanal
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  SUN ajuda você a definir metas e a criar um plano de ação para
-                  a semana.
-                </p>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">•</span>
-                    <span>
-                      O calendário visual é fundamental: organize compromissos,
-                      tarefas, atividades de autocuidado e tempo livre.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">•</span>
-                    <span>
-                      A plataforma oferece sugestões para otimizar sua rotina
-                      com base em seus desafios.
-                    </span>
-                  </li>
-                </ul>
-              </article>
-
-              <article className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 bg-[#E9D7A5] rounded-xl flex items-center justify-center mb-6">
-                  <Award className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Recompensas para Avançar
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  Cada conquista, por menor que seja, te recompensa a progredir
-                  na jornada:
-                </p>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">•</span>
-                    <span>
-                      Você ganha pontos ao atingir uma meta ou se manter
-                      consistente durante a semana.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">•</span>
-                    <span>
-                      Isso cria um sentimento positivo e motivação para
-                      continuar se desenvolvendo.
-                    </span>
-                  </li>
-                </ul>
               </article>
             </div>
           </div>
