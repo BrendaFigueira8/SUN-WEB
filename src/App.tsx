@@ -7,7 +7,7 @@ function App() {
   // contact form removed — WeeklyPlanner will be displayed below
 
   return (
-    <div className="min-h-screen bg-[#BB9A7F]">
+    <div className="min-h-screen bg-[#3D618A]">
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -87,84 +87,34 @@ function App() {
           className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50"
         >
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Como Funciona?
-              </h2>
-              <div className="w-20 h-1 bg-[#EBE1D7] mx-auto rounded-full"></div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <article className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 bg-[#BB9A7F] rounded-xl flex items-center justify-center mb-6">
-                  <Target className="w-7 h-7 text-white" />
+            <header className="py-16 px-4 animate-fade-in">
+              <div className="max-w-7xl mx-auto text-center">
+                <div className="inline-block mb-4">
+                  <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Desafios
-                </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  O SUN te incentiva a criar desafios para a semana. Coisas que
-                  estão difíceis de fazer podem ficar mais fáceis quando se tem
-                  um desafio a se cumprir.
+                <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4 tracking-tight">
+                  Planejamento
+                  <br />
+                  <span className="text-primary">Semanal</span>
+                </h1>
+                <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                  Lembre-se de não ultrapassar seus limites, faça com calma.
+                  <br />
+                  Com esses "pequenos" passos te levaram em direção à vida {'<3'}
                 </p>
-              </article>
+              </div>
+            </header>
 
-              <article className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 bg-[#BB9A7F] rounded-xl flex items-center justify-center mb-6">
-                  <Calendar className="w-7 h-7 text-white" />
+            <div className="px-4 pb-16">
+              <div className="max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-slide-up">
+                  <HabitTracker />
+                  <CommitmentsList />
+                  <WeeklyTasks />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Planejamento Semanal
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  SUN ajuda você a definir metas e a criar um plano de ação para
-                  a semana.
-                </p>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">•</span>
-                    <span>
-                      O calendário visual é fundamental: organize compromissos,
-                      tarefas, atividades de autocuidado e tempo livre.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">•</span>
-                    <span>
-                      A plataforma oferece sugestões para otimizar sua rotina
-                      com base em seus desafios.
-                    </span>
-                  </li>
-                </ul>
-              </article>
 
-              <article className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 bg-[#BB9A7F] rounded-xl flex items-center justify-center mb-6">
-                  <Award className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Recompensas para Avançar
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  Cada conquista, por menor que seja, te recompensa a progredir
-                  na jornada:
-                </p>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">•</span>
-                    <span>
-                      Você ganha pontos ao atingir uma meta ou se manter
-                      consistente durante a semana.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">•</span>
-                    <span>
-                      Isso cria um sentimento positivo e motivação para
-                      continuar se desenvolvendo.
-                    </span>
-                  </li>
-                </ul>
-              </article>
+                <StatusLegend />
+              </div>
             </div>
           </div>
         </section>
@@ -240,7 +190,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="bg-gray-800 text-white py-8 px-4">
+      <footer className="bg-white">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <img src={logo} className="w-auto h-12 object-contain" />
