@@ -64,6 +64,14 @@ function App() {
       <main className="pt-16">
         <section id="sobre" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#3C342B] mb-6 tracking-tight">
+                Planeje, Respire, Avance:
+                <br />
+                <span className="text-[#B6926C]">Uma Vida com Mais Luz</span>
+              </h1>
+              <div className="h-1 w-32 bg-gradient-to-r from-[#B6926C] to-[#E9D7A5] mx-auto rounded-full mb-16" />
+            </div>
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               <div className="w-full md:w-1/3 flex justify-center">
                 <img src={logo} className="w-64 h-64 md:w-96 md:h-96 object-contain" alt="Logo Sun" />
@@ -122,16 +130,17 @@ function App() {
 
         <section id="contato" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#3C342B] mb-4">
               Contato
             </h2>
+            <div className="h-1 w-32 bg-gradient-to-r from-[#B6926C] to-[#E9D7A5] mx-auto rounded-full mb-8" />
 
             <div className="flex items-center justify-center gap-4">
               <a
                 href="https://github.com/BrendaFigueira8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2 bg-gray-900 text-white rounded-full shadow hover:bg-gray-800 transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2 bg-[#3C342B] text-white rounded-full shadow hover:bg-[#B6926C] transition-colors duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +157,7 @@ function App() {
                 href="https://www.linkedin.com/in/brenda-figueira/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2 bg-gray-900 text-white rounded-full shadow hover:bg-gray-800 transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2 bg-[#3C342B] text-white rounded-full shadow hover:bg-[#B6926C] transition-colors duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +174,7 @@ function App() {
                 href="https://www.instagram.com/brendafigueira8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2 bg-gray-900 text-white rounded-full shadow hover:bg-gray-800 transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2 bg-[#3C342B] text-white rounded-full shadow hover:bg-[#B6926C] transition-colors duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
