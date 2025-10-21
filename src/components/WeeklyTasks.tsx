@@ -1,8 +1,10 @@
+import { Check } from "lucide-react";
+
 export const WeeklyTasks = () => {
   return (
-    <div className="bg-card rounded-xl border-4 border-[hsl(var(--warm-tan-dark))] p-6 shadow-sm hover:shadow-md transition-shadow">
-      <div className="bg-[hsl(var(--warm-tan))] -mx-6 -mt-6 px-6 py-4 rounded-t-lg mb-6">
-        <h2 className="text-xl font-bold text-foreground">3. Tarefas da Semana</h2>
+    <div className="bg-white rounded-xl border-4 border-[#C7B192] p-6 shadow-sm hover:shadow-md transition-shadow">
+      <div className="bg-[#D6C29A] -mx-6 -mt-6 px-6 py-4 rounded-t-lg mb-6">
+        <h2 className="text-xl font-bold text-[#4A3F36]">3. Tarefas da Semana</h2>
       </div>
 
       <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
@@ -16,7 +18,9 @@ export const WeeklyTasks = () => {
 
         <div className="space-y-3">
           <div className="flex items-center gap-3">
-            <div className="w-5 h-5 rounded-full bg-[hsl(var(--status-done))] flex-shrink-0" />
+            <div className="w-5 h-5 rounded-full bg-[#7FC06C] flex items-center justify-center flex-shrink-0">
+              <Check className="w-3.5 h-3.5 text-white" />
+            </div>
             <p className="text-sm text-foreground">Tomar um pouco de sol na varanda</p>
           </div>
         </div>

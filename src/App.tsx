@@ -22,7 +22,7 @@ function App() {
               <ul className="flex space-x-8">
                 <li>
                   <a
-                    href="#sobre"
+                                                                                href="#sobre"
                     className="text-gray-700 hover:text-[#3D618A] transition-colors duration-200 font-medium"
                   >
                     Sobre
@@ -195,14 +195,14 @@ function App() {
               <header className="py-16 px-4 animate-fade-in">
                 <div className="max-w-7xl mx-auto text-center">
                   <div className="inline-block mb-4">
-                    <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6" />
+                    <div className="h-1 w-20 bg-[#B6926C] rounded-full mx-auto mb-6" />
                   </div>
-                  <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4 tracking-tight">
+                  <h1 className="text-5xl md:text-6xl font-bold text-[#3C342B] mb-4 tracking-tight">
                     Planejamento
                     <br />
-                    <span className="text-primary">Semanal</span>
+                    <span className="text-[#B6926C]">Semanal</span>
                   </h1>
-                  <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                  <p className="text-base text-[#7C6E65] max-w-2xl mx-auto leading-relaxed">
                     Lembre-se de não ultrapassar seus limites, faça com calma.
                     <br />
                     Com esses "pequenos" passos te levaram em direção à vida {'<3'}

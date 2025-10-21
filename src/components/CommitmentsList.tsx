@@ -2,9 +2,9 @@ import { Check } from "lucide-react";
 
 export const CommitmentsList = () => {
   return (
-    <div className="bg-card rounded-xl border-4 border-[hsl(var(--warm-orange-dark))] p-6 shadow-sm hover:shadow-md transition-shadow">
-      <div className="bg-[hsl(var(--warm-orange))] -mx-6 -mt-6 px-6 py-4 rounded-t-lg mb-6">
-        <h2 className="text-xl font-bold text-foreground">2. Compromissos</h2>
+    <div className="bg-white rounded-xl border-4 border-[#D68847] p-6 shadow-sm hover:shadow-md transition-shadow">
+      <div className="bg-[#E7A76B] -mx-6 -mt-6 px-6 py-4 rounded-t-lg mb-6">
+        <h2 className="text-xl font-bold text-[#3F2E20]">2. Compromissos</h2>
       </div>
 
       <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
@@ -18,8 +18,8 @@ export const CommitmentsList = () => {
 
         <div className="space-y-3">
           <div className="flex items-center gap-3">
-            <div className="w-5 h-5 rounded-sm bg-[hsl(var(--status-done))] flex items-center justify-center flex-shrink-0">
-              <Check className="w-4 h-4 text-white" />
+            <div className="w-5 h-5 rounded-full bg-[#7FC06C] flex items-center justify-center flex-shrink-0">
+              <Check className="w-3.5 h-3.5 text-white" />
             </div>
             <p className="text-sm text-foreground">Vôlei - terça-feira</p>
           </div>
