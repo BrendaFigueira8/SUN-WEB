@@ -66,7 +66,7 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Descrição Sobre o Aplicativo Sun
+                Sobre o Sun
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full"></div>
             </div>
@@ -183,7 +183,7 @@ function App() {
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Contato
             </h2>
-            <p className="text-lg text-gray-700 mb-6"> Minhas redes sociais:</p>
+
             <div className="flex items-center justify-center gap-4">
               <a
                 href="https://github.com/BrendaFigueira8"
