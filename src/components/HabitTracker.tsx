@@ -19,9 +19,9 @@ export const HabitTracker = () => {
         <div className="grid grid-cols-[auto_1fr] items-center gap-4">
           {/* Letters row */}
           <div />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center" style={{ gap: '0.875rem' }}>
             {days.map((day, index) => (
-              <div key={`label-${index}`} className="flex flex-col items-center">
+              <div key={`label-${index}`} className="flex flex-col items-center w-3.5">
                 <span className="text-xs text-muted-foreground font-medium">{day}</span>
               </div>
             ))}
@@ -29,7 +29,7 @@ export const HabitTracker = () => {
 
           {/* Dots row: label + dots aligned */}
           <p className="font-medium text-sm whitespace-nowrap">Vitamina B12</p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center" style={{ gap: '0.875rem' }}>
             {days.map((_, index) => {
               let dotClass = "border-2 border-gray-300";
               // days array starts with Sunday (index 0)
