@@ -64,15 +64,9 @@ function App() {
       <main className="pt-16">
         <section id="sobre" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Sobre o Sun
-              </h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full"></div>
-            </div>
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               <div className="w-full md:w-1/3 flex justify-center">
-                <img src={logo} className="w-48 h-48 md:w-64 md:h-64 object-contain" alt="Logo Sun" />
+                <img src={logo} className="w-64 h-64 md:w-96 md:h-96 object-contain" alt="Logo Sun" />
               </div>
               <article className="w-full md:w-2/3 bg-white rounded-2xl shadow-lg p-8 md:p-12 hover:shadow-xl transition-shadow duration-300">
                 <p className="text-lg text-gray-700 leading-relaxed">
@@ -154,7 +148,7 @@ function App() {
                 href="https://www.linkedin.com/in/brenda-figueira/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2 bg-gray-900 text-white rounded-full shadow hover:bg-gray-800 transition-colors duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +165,7 @@ function App() {
                 href="https://www.instagram.com/brendafigueira8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded-full shadow hover:bg-pink-600 transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2 bg-gray-900 text-white rounded-full shadow hover:bg-gray-800 transition-colors duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
