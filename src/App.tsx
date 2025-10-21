@@ -1,7 +1,11 @@
-import { Sun, Target, Calendar, Award } from "lucide-react";
+import { Target, Calendar, Award } from "lucide-react";
 // no hooks needed in App after removing contact form
 import WeeklyPlanner from "./components/WeeklyPlanner";
-import logo from "./assets/logo.png";
+import { HabitTracker } from "./components/HabitTracker";
+import { CommitmentsList } from "./components/CommitmentsList";
+import { WeeklyTasks } from "./components/WeeklyTasks";
+import { StatusLegend } from "./components/StatusLegend";
+const logo = new URL("./assets/logo.png", import.meta.url).href;
 
 function App() {
   // contact form removed — WeeklyPlanner will be displayed below
@@ -177,12 +181,48 @@ function App() {
           </div>
         </section>
 
-        <section
-          id="planejador"
-          className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50"
-        >
+        <section id="planejador" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
           <div className="max-w-7xl mx-auto">
             <WeeklyPlanner />
+          </div>
+        </section>
+
+        {/* New Hero + Planner Summary Section */}
+        <section id="planejamento-semanal" className="py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="min-h-screen bg-background">
+              {/* Hero Section */}
+              <header className="py-16 px-4 animate-fade-in">
+                <div className="max-w-7xl mx-auto text-center">
+                  <div className="inline-block mb-4">
+                    <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6" />
+                  </div>
+                  <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4 tracking-tight">
+                    Planejamento
+                    <br />
+                    <span className="text-primary">Semanal</span>
+                  </h1>
+                  <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                    Lembre-se de não ultrapassar seus limites, faça com calma.
+                    <br />
+                    Com esses "pequenos" passos te levaram em direção à vida {'<3'}
+                  </p>
+                </div>
+              </header>
+
+              {/* Main Content */}
+              <main className="px-4 pb-16">
+                <div className="max-w-7xl mx-auto">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-slide-up">
+                    <HabitTracker />
+                    <CommitmentsList />
+                    <WeeklyTasks />
+                  </div>
+
+                  <StatusLegend />
+                </div>
+              </main>
+            </div>
           </div>
         </section>
 
