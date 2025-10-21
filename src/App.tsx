@@ -1,10 +1,9 @@
 import { Target, Calendar, Award } from "lucide-react";
-// no hooks needed in App after removing contact form
-import WeeklyPlanner from "./components/WeeklyPlanner";
 import { HabitTracker } from "./components/HabitTracker";
 import { CommitmentsList } from "./components/CommitmentsList";
 import { WeeklyTasks } from "./components/WeeklyTasks";
 import { StatusLegend } from "./components/StatusLegend";
+
 const logo = new URL("./assets/logo.png", import.meta.url).href;
 
 function App() {
@@ -178,12 +177,6 @@ function App() {
                 </ul>
               </article>
             </div>
-          </div>
-        </section>
-
-        <section id="planejador" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
-          <div className="max-w-7xl mx-auto">
-            <WeeklyPlanner />
           </div>
         </section>
 

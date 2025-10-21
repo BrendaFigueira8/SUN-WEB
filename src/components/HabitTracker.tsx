@@ -16,15 +16,34 @@ export const HabitTracker = () => {
           Como usar: marque o círculo de cada dia com uma determinada cor, dependendo se completou ou não.
         </p>
 
-        <div className="flex items-center gap-4">
-            <p className="font-medium text-sm whitespace-nowrap">Vitamina B12</p>
+        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
+          {/* Letters row */}
+          <div />
           <div className="flex items-center gap-2">
             {days.map((day, index) => (
-              <div key={index} className="flex flex-col items-center gap-1.5">
+              <div key={`label-${index}`} className="flex flex-col items-center">
                 <span className="text-xs text-muted-foreground font-medium">{day}</span>
-                {/* <Checkbox className="rounded-full data-[state=checked]:bg-[hsl(var(--sage-green-dark))] data-[state=checked]:border-[hsl(var(--sage-green-dark))]" /> */}
               </div>
             ))}
+          </div>
+
+          {/* Dots row: label + dots aligned */}
+          <p className="font-medium text-sm whitespace-nowrap">Vitamina B12</p>
+          <div className="flex items-center gap-2">
+            {days.map((_, index) => {
+              let dotClass = "border-2 border-gray-300";
+              // days array starts with Sunday (index 0)
+              // fill green on Monday (index 1) and Tuesday (index 2)
+              // fill yellow on Wednesday (index 3)
+              if (index === 1 || index === 2) dotClass = "bg-[#7FC06C]";
+              if (index === 3) dotClass = "bg-[#E2C15A]";
+
+              return (
+                <div key={`dot-${index}`} className="flex flex-col items-center gap-1.5">
+                  <div className={`w-3.5 h-3.5 rounded-full ${dotClass}`} />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
