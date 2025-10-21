@@ -1,5 +1,3 @@
-import { Check } from "lucide-react";
-
 export const WeeklyTasks = () => {
   return (
     <div className="bg-white rounded-xl border-4 border-[#C7B192] p-6 shadow-sm hover:shadow-md transition-shadow">
