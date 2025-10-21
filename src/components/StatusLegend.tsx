@@ -8,7 +8,7 @@ export const StatusLegend = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded-full bg-[#D94A4A] flex-shrink-0" />
+          <div className="w-5 h-5 rounded-full bg-[#b73434] flex-shrink-0" />
           <p className="text-[#3E322A]">
             <span className="font-semibold">Vermelho:</span> foi cancelado
           </p>
@@ -26,7 +26,7 @@ export const StatusLegend = () => {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded-full bg-[#D68847] flex-shrink-0" />
+          <div className="w-5 h-5 rounded-full bg-[#ef8e3e] flex-shrink-0" />
           <p className="text-[#3E322A]">
             <span className="font-semibold">Laranja:</span> foi adiado para próxima semana
           </p>
