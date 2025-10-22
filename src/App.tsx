@@ -19,7 +19,7 @@ function App() {
                 <li>
                   <a
                     href="#sobre"
-                    className="text-gray-700 hover:text-[#3D618A] transition-colors duration-200 font-medium"
+                    className="text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
                   >
                     Sobre
                   </a>
@@ -27,7 +27,7 @@ function App() {
                 <li>
                   <a
                     href="#planejamento-semanal"
-                    className="text-gray-700 hover:text-[#3D618A] transition-colors duration-200 font-medium"
+                    className="text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
                   >
                     Planejamento Semanal
                   </a>
@@ -35,7 +35,7 @@ function App() {
                 <li>
                   <a
                     href="#contato"
-                    className="text-gray-700 hover:text-[#3D618A] transition-colors duration-200 font-medium"
+                    className="text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
                   >
                     Contato
                   </a>
@@ -66,7 +66,7 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#3C342B] mb-6 tracking-tight">
-                Planeje, Respire, Avance:
+                Planeje, Respire, Avance
                 <br />
                 <span className="text-[#B6926C]">Uma Vida com Mais Luz</span>
               </h1>
@@ -191,7 +191,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="bg-[#3d618a]">
+      <footer className="bg-[#3C342B]">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <img src={logo} className="w-20 h-16 object-contain brightness-0 invert" />
