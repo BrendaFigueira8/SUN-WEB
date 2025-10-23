@@ -2,9 +2,9 @@ export const StatusLegend = () => {
   return (
     <div className="mt-12 bg-[#EDE5DA] rounded-2xl px-8 py-8 max-w-4xl mx-auto shadow-sm">
       <p className="text-center text-sm leading-relaxed mb-6 text-[#6B5E52]">
-        Para não me sentir pressionada e ansiosa,
+        <span className="font-semibold">Para promover uma gestão eficaz da autoexigência e do estresse, </span>
         <br />
-        eu determinei cores para aliviar a pressão que fazia em mim mesma.
+        <span className="font-semibold">foi estabelecido um sistema de cores como mecanismo para o alívio da pressão.</span>
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div className="flex items-center gap-3">
