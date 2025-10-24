@@ -90,7 +90,7 @@ function App() {
         </section>
 
         {/* New Hero + Planner Summary Section */}
-        <section id="planejamento-semanal" className="py-12 px-4 sm:px-6 lg:px-8">
+        <section id="planejamento-semanal" className="py-0 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="min-h-screen bg-background">
               {/* Hero Section */}
@@ -128,7 +128,7 @@ function App() {
           </div>
         </section>
 
-        <section id="contato" className="py-20 px-4 sm:px-6 lg:px-8">
+        <section id="contato" className="pt-8 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-12 bg-red-50 border-2 border-red-400 rounded-xl p-6 max-w-xl mx-auto">
               <p className="text-red-800 font-semibold text-base leading-relaxed">
