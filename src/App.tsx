@@ -30,7 +30,7 @@ function App() {
                     href="#planejamento-semanal"
                     className="text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
                   >
-                    Planejamento Semanal
+                    Modelo
                   </a>
                 </li>
                 <li>
@@ -43,7 +43,7 @@ function App() {
                 </li>
               </ul>
             </nav>
-            <button 
+            <button
               className="md:hidden text-gray-700"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
@@ -64,7 +64,7 @@ function App() {
             </button>
           </div>
         </div>
-        
+
         {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
@@ -85,7 +85,7 @@ function App() {
                     className="block text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Planejamento Semanal
+                    Modelo
                   </a>
                 </li>
                 <li>
@@ -120,17 +120,15 @@ function App() {
               </div>
               <article className="flex-1 bg-white rounded-2xl shadow-lg p-8 md:p-12 hover:shadow-xl transition-shadow duration-300">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  SUN é uma iniciativa que oferece suporte para quem está
-                  enfrentando desafios da vida, como ansiedade, depressão ou falta
-                  de organização. Não se trata de "superar" esses problemas de
-                  forma definitiva, mas sim de criar momentos de progresso
-                  contínuo em direção a uma vida mais plena e equilibrada.
+                  A SUN é uma iniciativa criada para apoiar pessoas que estão enfrentando desafios da vida, como ansiedade, depressão, desmotivação ou dificuldades em se organizar.
+                  Nosso propósito não é “curar” ou “superar” esses momentos de forma definitiva, mas sim construir pequenos avanços diários, promovendo uma jornada de autoconhecimento, equilíbrio e bem-estar.
+                  Cada passo conta, e acreditamos que o progresso, é o que nos move em direção a uma vida mais leve e significativa.
                 </p>
               </article>
             </div>
           </div>
         </section>
-
+2
         {/* New Hero + Planner Summary Section */}
         <section id="planejamento-semanal" className="py-0 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
@@ -164,6 +162,31 @@ function App() {
                   </div>
 
                   <StatusLegend />
+
+                  {/* Call to Action Button */}
+                  <div className="mt-12 text-center">
+                    <a
+                      href="/criar-planejamento"
+                      className="inline-flex items-center gap-2 px-8 py-4 bg-[#B6926C] text-white text-lg font-semibold rounded-full shadow-lg hover:bg-[#3C342B] transition-all duration-300 hover:scale-105"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M12 5v14M5 12h14" />
+                      </svg>
+                      Criar Meu Planejamento
+                    </a>
+                    <p className="mt-4 text-sm text-[#7C6E65]">
+                      Comece agora a organizar sua semana!
+                    </p>
+                  </div>
                 </div>
               </main>
             </div>
