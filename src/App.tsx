@@ -1,4 +1,3 @@
-import { Target, Calendar, Award } from "lucide-react";
 import { useState } from "react";
 import { HabitTracker } from "./components/HabitTracker";
 import { CommitmentsList } from "./components/CommitmentsList";
@@ -128,7 +127,6 @@ function App() {
             </div>
           </div>
         </section>
-2
         {/* New Hero + Planner Summary Section */}
         <section id="planejamento-semanal" className="py-0 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
