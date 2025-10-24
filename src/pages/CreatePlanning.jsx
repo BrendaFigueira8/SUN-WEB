@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
 
 const logo = new URL("../assets/new-logo.webp", import.meta.url).href;
 
@@ -62,6 +63,179 @@ export const CreatePlanning = () => {
       
       alert('Planejamento limpo com sucesso!');
     }
+  };
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let yPos = 20;
+
+    // Título
+    doc.setFontSize(22);
+    doc.setTextColor(60, 52, 43); // #3C342B
+    doc.text('Meu Planejamento Semanal', pageWidth / 2, yPos, { align: 'center' });
+    yPos += 15;
+
+    // Data de criação
+    doc.setFontSize(10);
+    doc.setTextColor(124, 110, 101); // #7C6E65
+    const now = new Date().toLocaleDateString('pt-BR', { 
+      day: '2-digit', 
+      month: 'long', 
+      year: 'numeric' 
+    });
+    doc.text(`Criado em: ${now}`, pageWidth / 2, yPos, { align: 'center' });
+    yPos += 15;
+
+    // 1. Hábitos Diários
+    doc.setFontSize(16);
+    doc.setTextColor(33, 50, 31); // #21321F
+    doc.text('1. Hábitos Diários', 15, yPos);
+    yPos += 8;
+
+    const daysAbbr = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+    
+    habits.forEach((habit, index) => {
+      if (habit.name) {
+        doc.setFontSize(11);
+        doc.setTextColor(0, 0, 0);
+        doc.text(`• ${habit.name}`, 20, yPos);
+        yPos += 5;
+
+        // Dias da semana com cores
+        let xPos = 25;
+        daysAbbr.forEach((day, dayIndex) => {
+          doc.setFontSize(8);
+          doc.text(day, xPos, yPos);
+          
+          const color = habit.days[dayIndex];
+          if (color === 'green') {
+            doc.setFillColor(127, 192, 108); // #7FC06C
+          } else if (color === 'yellow') {
+            doc.setFillColor(226, 193, 90); // #E2C15A
+          } else if (color === 'red') {
+            doc.setFillColor(217, 74, 74); // #D94A4A
+          } else if (color === 'orange') {
+            doc.setFillColor(214, 136, 71); // #D68847
+          } else {
+            doc.setFillColor(255, 255, 255);
+          }
+          
+          doc.circle(xPos + 5, yPos + 3, 2, 'F');
+          doc.setDrawColor(200, 200, 200);
+          doc.circle(xPos + 5, yPos + 3, 2, 'S');
+          
+          xPos += 18;
+        });
+        
+        yPos += 8;
+      }
+    });
+
+    yPos += 5;
+
+    // 2. Compromissos
+    if (yPos > 250) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFontSize(16);
+    doc.setTextColor(63, 46, 32); // #3F2E20
+    doc.text('2. Compromissos', 15, yPos);
+    yPos += 8;
+
+    commitments.forEach((commitment, index) => {
+      if (commitment.name) {
+        doc.setFontSize(11);
+        doc.setTextColor(0, 0, 0);
+        
+        let statusIcon = '';
+        if (commitment.status === 'check') {
+          statusIcon = '✓';
+          doc.setTextColor(127, 192, 108); // Verde
+        } else if (commitment.status === 'x') {
+          statusIcon = '✗';
+          doc.setTextColor(217, 74, 74); // Vermelho
+        }
+        
+        doc.text(`${statusIcon} ${commitment.name}`, 20, yPos);
+        yPos += 6;
+      }
+    });
+
+    yPos += 5;
+
+    // 3. Tarefas da Semana
+    if (yPos > 250) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFontSize(16);
+    doc.setTextColor(74, 63, 54); // #4A3F36
+    doc.text('3. Tarefas da Semana', 15, yPos);
+    yPos += 8;
+
+    weeklyTasks.forEach((task, index) => {
+      if (task.name) {
+        doc.setFontSize(11);
+        doc.setTextColor(0, 0, 0);
+        
+        // Desenhar círculo colorido
+        const xCircle = 17;
+        if (task.color === 'green') {
+          doc.setFillColor(127, 192, 108);
+        } else if (task.color === 'yellow') {
+          doc.setFillColor(226, 193, 90);
+        } else if (task.color === 'red') {
+          doc.setFillColor(217, 74, 74);
+        } else if (task.color === 'orange') {
+          doc.setFillColor(214, 136, 71);
+        } else {
+          doc.setFillColor(255, 255, 255);
+        }
+        
+        doc.circle(xCircle, yPos - 1.5, 1.5, 'F');
+        doc.setDrawColor(200, 200, 200);
+        doc.circle(xCircle, yPos - 1.5, 1.5, 'S');
+        
+        doc.text(task.name, 22, yPos);
+        yPos += 6;
+      }
+    });
+
+    // Legenda
+    if (yPos > 240) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    yPos += 10;
+    doc.setFontSize(12);
+    doc.setTextColor(62, 50, 42);
+    doc.text('Legenda de Cores:', 15, yPos);
+    yPos += 7;
+
+    const legendItems = [
+      { color: [127, 192, 108], label: 'Verde: consegui fazer' },
+      { color: [226, 193, 90], label: 'Amarelo: tempo livre' },
+      { color: [217, 74, 74], label: 'Vermelho: foi cancelado' },
+      { color: [214, 136, 71], label: 'Laranja: adiado' }
+    ];
+
+    legendItems.forEach((item) => {
+      doc.setFillColor(...item.color);
+      doc.circle(17, yPos - 1.5, 1.5, 'F');
+      
+      doc.setFontSize(9);
+      doc.setTextColor(0, 0, 0);
+      doc.text(item.label, 22, yPos);
+      yPos += 5;
+    });
+
+    // Salvar PDF
+    doc.save('planejamento-semanal.pdf');
   };
 
   const getColorForDay = (habit, dayIndex) => {
@@ -361,6 +535,30 @@ export const CreatePlanning = () => {
               className="px-6 sm:px-8 py-3 bg-[#B6926C] text-white rounded-full font-semibold hover:bg-[#3C342B] transition-colors shadow-lg text-sm sm:text-base"
             >
               Salvar Planejamento
+            </button>
+          </div>
+
+          {/* Download PDF Button */}
+          <div className="flex justify-center pt-4">
+            <button
+              onClick={downloadPDF}
+              className="px-6 sm:px-8 py-3 bg-[#3C342B] text-white rounded-full font-semibold hover:bg-[#B6926C] transition-colors shadow-lg text-sm sm:text-base flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Baixar Planejamento
             </button>
           </div>
         </div>
