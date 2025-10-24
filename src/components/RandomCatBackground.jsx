@@ -8,8 +8,8 @@ export function RandomCatBackground() {
     const positions = [];
     const minDistance = 15; // Distância mínima entre imagens em % da tela
     // Detecta largura da tela
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 700;
-    const maxCats = isMobile ? 20 : 40;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 700;
+  const maxCats = isMobile ? 10 : 40;
 
     // Função para verificar se duas posições se sobrepõem
     const isOverlapping = (pos1, pos2) => {
@@ -54,6 +54,7 @@ export function RandomCatBackground() {
   const [hoveredCat, setHoveredCat] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
   let hoverTimeout = null;
+  let tooltipTimeout = null;
 
   // Tooltip texts
   const tooltips = {
@@ -77,14 +78,20 @@ export function RandomCatBackground() {
         tooltip: cat.image === cat1 ? tooltips.cat1 : tooltips.cat2
       });
       setShowTooltip(true);
+      // Tooltip desaparece após 2.5s
+      tooltipTimeout = setTimeout(() => {
+        setShowTooltip(false);
+        setHoveredCat(null);
+      }, 2500);
     }, 1000);
   };
 
   // Handler para mouse leave
   const handleMouseLeave = () => {
-    clearTimeout(hoverTimeout);
-    setShowTooltip(false);
-    setHoveredCat(null);
+  clearTimeout(hoverTimeout);
+  clearTimeout(tooltipTimeout);
+  setShowTooltip(false);
+  setHoveredCat(null);
   };
 
   return (
