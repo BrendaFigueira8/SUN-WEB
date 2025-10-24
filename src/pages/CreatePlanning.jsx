@@ -101,7 +101,7 @@ export const CreatePlanning = () => {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#eccd59] mb-3 sm:mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#8E705B] mb-3 sm:mb-4">
             Criar Meu Planejamento
           </h1>
           <p className="text-sm sm:text-base text-[#7C6E65] max-w-2xl mx-auto px-2">
