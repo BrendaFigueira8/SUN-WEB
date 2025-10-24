@@ -61,7 +61,7 @@ function App() {
         </div>
       </header>
 
-      <main className="pt-16">
+      <main className="pt-16 flex-grow">
         <section id="sobre" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -198,12 +198,12 @@ function App() {
         </section>
       </main>
 
-      <footer className="bg-[#3C342B]">
-        <div className="max-w-7xl mx-auto text-center">
+      <footer className="bg-[#3C342B] py-8 mt-auto">
+        <div className="max-w-7xl mx-auto text-center px-4">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <img src={logo} className="w-20 h-16 object-contain brightness-0 invert" />
+            <img src={logo} className="w-20 h-16 object-contain brightness-0 invert" alt="Logo Sun" />
           </div>
-          <p className="text-white mb-4">
+          <p className="text-white">
             &copy; 2025 Brenda Figueira. Todos os direitos reservados.<br />
             Este site oferece informações de apoio e não substitui tratamento profissional.
           </p>
