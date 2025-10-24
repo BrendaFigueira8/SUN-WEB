@@ -1,4 +1,5 @@
 import { Target, Calendar, Award } from "lucide-react";
+import { useState } from "react";
 import { HabitTracker } from "./components/HabitTracker";
 import { CommitmentsList } from "./components/CommitmentsList";
 import { WeeklyTasks } from "./components/WeeklyTasks";
@@ -7,7 +8,7 @@ import { StatusLegend } from "./components/StatusLegend";
 const logo = new URL("./assets/new-logo.webp", import.meta.url).href;
 
 function App() {
-  // contact form removed — WeeklyPlanner will be displayed below
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#FBF5DF] flex flex-col">
@@ -42,7 +43,11 @@ function App() {
                 </li>
               </ul>
             </nav>
-            <button className="md:hidden text-gray-700">
+            <button 
+              className="md:hidden text-gray-700"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -53,12 +58,49 @@ function App() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
+                  d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
                 />
               </svg>
             </button>
           </div>
         </div>
+        
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200">
+            <nav className="px-4 py-4">
+              <ul className="space-y-4">
+                <li>
+                  <a
+                    href="#sobre"
+                    className="block text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Sobre
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#planejamento-semanal"
+                    className="block text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Planejamento Semanal
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#contato"
+                    className="block text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Contato
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        )}
       </header>
 
       <main className="pt-16 flex-grow">
