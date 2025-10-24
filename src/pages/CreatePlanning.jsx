@@ -99,92 +99,94 @@ export const CreatePlanning = () => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#3C342B] mb-4">
-            Criar Meu <span className="text-[#B6926C]">Planejamento</span>
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#eccd59] mb-3 sm:mb-4">
+            Criar Meu Planejamento
           </h1>
-          <p className="text-[#7C6E65] max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#7C6E65] max-w-2xl mx-auto px-2">
             Organize sua semana de forma personalizada. Adicione seus hábitos, compromissos e tarefas.
           </p>
         </div>
 
         <div className="space-y-8">
           {/* Hábitos Diários */}
-          <section className="bg-white rounded-xl border-4 border-[#8AA87B] p-6 shadow-sm">
-            <div className="bg-[#9DBF93] -mx-6 -mt-6 px-6 py-4 rounded-t-lg mb-6">
-              <h2 className="text-xl font-bold text-[#21321F]">1. Hábitos Diários</h2>
+          <section className="bg-white rounded-xl border-4 border-[#8AA87B] p-4 sm:p-6 shadow-sm">
+            <div className="bg-[#9DBF93] -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 px-4 sm:px-6 py-3 sm:py-4 rounded-t-lg mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl font-bold text-[#21321F]">1. Hábitos Diários</h2>
             </div>
             
             {/* Cabeçalho com dias da semana fixos */}
-            <div className="grid grid-cols-[1fr_repeat(7,60px)] gap-2 mb-4 pb-3 border-b-2 border-[#8AA87B]">
-              <div className="font-semibold text-[#21321F]">Hábito</div>
-              {days.map((day, index) => (
-                <div key={index} className="text-center text-xs font-medium text-gray-600">
-                  {day}
-                </div>
-              ))}
-            </div>
+            <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+              <div className="grid grid-cols-[minmax(120px,1fr)_repeat(7,40px)] sm:grid-cols-[1fr_repeat(7,50px)] md:grid-cols-[1fr_repeat(7,60px)] gap-1 sm:gap-2 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-2 border-[#8AA87B] min-w-[600px] sm:min-w-0">
+                <div className="font-semibold text-[#21321F] text-sm sm:text-base">Hábito</div>
+                {days.map((day, index) => (
+                  <div key={index} className="text-center text-[10px] sm:text-xs font-medium text-gray-600">
+                    {day}
+                  </div>
+                ))}
+              </div>
 
-            <div className="space-y-3">
-              {habits.map((habit, habitIndex) => (
-                <div key={habitIndex} className="grid grid-cols-[1fr_repeat(7,60px)] gap-2 items-center">
-                  <input
-                    type="text"
-                    placeholder="Ex: Tomar vitamina B12"
-                    value={habit.name}
-                    onChange={(e) => {
-                      const newHabits = [...habits];
-                      newHabits[habitIndex].name = e.target.value;
-                      setHabits(newHabits);
-                    }}
-                    className="px-3 py-2 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm"
-                  />
-                  
-                  {/* Bolinhas para cada dia */}
-                  {days.map((day, dayIndex) => (
-                    <div key={dayIndex} className="flex justify-center">
-                      <button
-                        onClick={() => cycleColorForDay(habitIndex, dayIndex)}
-                        className="w-8 h-8 rounded-full border-2 border-gray-300 cursor-pointer hover:border-[#8AA87B] transition-all hover:scale-110"
-                        style={{ 
-                          backgroundColor: getColorForDay(habit, dayIndex) ? statusColors[getColorForDay(habit, dayIndex)].bg : 'white'
-                        }}
-                        title="Click para alternar: Vazio → Verde → Amarelo → Vermelho → Laranja → Vazio"
-                      />
-                    </div>
-                  ))}
-                </div>
-              ))}
-              
-              <button
-                onClick={addHabit}
-                className="w-full py-2 border-2 border-dashed border-[#8AA87B] rounded-lg text-[#8AA87B] hover:bg-[#9DBF93]/10 transition-colors"
-              >
-                + Adicionar Hábito
-              </button>
+              <div className="space-y-2 sm:space-y-3 min-w-[600px] sm:min-w-0">
+                {habits.map((habit, habitIndex) => (
+                  <div key={habitIndex} className="grid grid-cols-[minmax(120px,1fr)_repeat(7,40px)] sm:grid-cols-[1fr_repeat(7,50px)] md:grid-cols-[1fr_repeat(7,60px)] gap-1 sm:gap-2 items-center">
+                    <input
+                      type="text"
+                      placeholder="Ex: Vitamina B12"
+                      value={habit.name}
+                      onChange={(e) => {
+                        const newHabits = [...habits];
+                        newHabits[habitIndex].name = e.target.value;
+                        setHabits(newHabits);
+                      }}
+                      className="px-2 sm:px-3 py-2 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-xs sm:text-sm"
+                    />
+                    
+                    {/* Bolinhas para cada dia */}
+                    {days.map((day, dayIndex) => (
+                      <div key={dayIndex} className="flex justify-center">
+                        <button
+                          onClick={() => cycleColorForDay(habitIndex, dayIndex)}
+                          className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full border-2 border-gray-300 cursor-pointer hover:border-[#8AA87B] transition-all active:scale-95 hover:scale-110"
+                          style={{ 
+                            backgroundColor: getColorForDay(habit, dayIndex) ? statusColors[getColorForDay(habit, dayIndex)].bg : 'white'
+                          }}
+                          title="Click para alternar cores"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
+              
+            <button
+              onClick={addHabit}
+              className="w-full py-2 border-2 border-dashed border-[#8AA87B] rounded-lg text-[#8AA87B] text-sm sm:text-base hover:bg-[#9DBF93]/10 transition-colors mt-3 sm:mt-4"
+            >
+              + Adicionar Hábito
+            </button>
           </section>
 
           {/* Compromissos */}
-          <section className="bg-white rounded-xl border-4 border-[#D68847] p-6 shadow-sm">
-            <div className="bg-[#E7A76B] -mx-6 -mt-6 px-6 py-4 rounded-t-lg mb-6">
-              <h2 className="text-xl font-bold text-[#3F2E20]">2. Compromissos</h2>
+          <section className="bg-white rounded-xl border-4 border-[#D68847] p-4 sm:p-6 shadow-sm">
+            <div className="bg-[#E7A76B] -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 px-4 sm:px-6 py-3 sm:py-4 rounded-t-lg mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl font-bold text-[#3F2E20]">2. Compromissos</h2>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {commitments.map((commitment, index) => (
-                <div key={index} className="flex items-center gap-3">
+                <div key={index} className="flex items-center gap-2 sm:gap-3">
                   <input
                     type="text"
-                    placeholder="Ex: Vôlei - terça-feira"
+                    placeholder="Ex: Vôlei - terça"
                     value={commitment.name}
                     onChange={(e) => {
                       const newCommitments = [...commitments];
                       newCommitments[index].name = e.target.value;
                       setCommitments(newCommitments);
                     }}
-                    className="flex-1 px-4 py-2 border-2 border-[#D68847] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E7A76B]"
+                    className="flex-1 px-3 sm:px-4 py-2 border-2 border-[#D68847] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E7A76B] text-sm sm:text-base"
                   />
                   <button
                     onClick={() => {
@@ -199,14 +201,14 @@ export const CreatePlanning = () => {
                       }
                       setCommitments(newCommitments);
                     }}
-                    className={`w-8 h-8 rounded-sm flex items-center justify-center border-2 transition-all hover:scale-110 ${
+                    className={`w-8 h-8 sm:w-9 sm:h-9 rounded-sm flex items-center justify-center border-2 transition-all active:scale-95 hover:scale-110 flex-shrink-0 ${
                       commitment.status === 'check' 
                         ? 'bg-[#7FC06C] border-[#7FC06C] text-white' 
                         : commitment.status === 'x'
                         ? 'bg-[#D94A4A] border-[#D94A4A] text-white'
                         : 'border-gray-300 hover:border-[#D68847]'
                     }`}
-                    title="Click para alternar: Vazio → ✓ → ✗ → Vazio"
+                    title="Click para alternar"
                   >
                     {commitment.status === 'check' && '✓'}
                     {commitment.status === 'x' && '✗'}
@@ -216,7 +218,7 @@ export const CreatePlanning = () => {
               
               <button
                 onClick={addCommitment}
-                className="w-full py-2 border-2 border-dashed border-[#D68847] rounded-lg text-[#D68847] hover:bg-[#E7A76B]/10 transition-colors"
+                className="w-full py-2 border-2 border-dashed border-[#D68847] rounded-lg text-[#D68847] text-sm sm:text-base hover:bg-[#E7A76B]/10 transition-colors"
               >
                 + Adicionar Compromisso
               </button>
@@ -224,24 +226,24 @@ export const CreatePlanning = () => {
           </section>
 
           {/* Tarefas da Semana */}
-          <section className="bg-white rounded-xl border-4 border-[#C7B192] p-6 shadow-sm">
-            <div className="bg-[#D6C29A] -mx-6 -mt-6 px-6 py-4 rounded-t-lg mb-6">
-              <h2 className="text-xl font-bold text-[#4A3F36]">3. Tarefas da Semana</h2>
+          <section className="bg-white rounded-xl border-4 border-[#C7B192] p-4 sm:p-6 shadow-sm">
+            <div className="bg-[#D6C29A] -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 px-4 sm:px-6 py-3 sm:py-4 rounded-t-lg mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl font-bold text-[#4A3F36]">3. Tarefas da Semana</h2>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {weeklyTasks.map((task, index) => (
-                <div key={index} className="flex items-center gap-3">
+                <div key={index} className="flex items-center gap-2 sm:gap-3">
                   <input
                     type="text"
-                    placeholder="Ex: Tomar um pouco de sol na varanda"
+                    placeholder="Ex: Sol na varanda"
                     value={task.name}
                     onChange={(e) => {
                       const newTasks = [...weeklyTasks];
                       newTasks[index].name = e.target.value;
                       setWeeklyTasks(newTasks);
                     }}
-                    className="flex-1 px-4 py-2 border-2 border-[#C7B192] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D6C29A]"
+                    className="flex-1 px-3 sm:px-4 py-2 border-2 border-[#C7B192] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D6C29A] text-sm sm:text-base"
                   />
                   <button
                     onClick={() => {
@@ -261,18 +263,18 @@ export const CreatePlanning = () => {
                       }
                       setWeeklyTasks(newTasks);
                     }}
-                    className="w-8 h-8 rounded-full border-2 border-gray-300 cursor-pointer hover:border-[#C7B192] transition-all hover:scale-110"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-gray-300 cursor-pointer hover:border-[#C7B192] transition-all active:scale-95 hover:scale-110 flex-shrink-0"
                     style={{ 
                       backgroundColor: task.color ? statusColors[task.color].bg : 'white'
                     }}
-                    title="Click para alternar: Vazio → Verde → Amarelo → Vermelho → Laranja → Vazio"
+                    title="Click para alternar cores"
                   />
                 </div>
               ))}
               
               <button
                 onClick={addWeeklyTask}
-                className="w-full py-2 border-2 border-dashed border-[#C7B192] rounded-lg text-[#C7B192] hover:bg-[#D6C29A]/10 transition-colors"
+                className="w-full py-2 border-2 border-dashed border-[#C7B192] rounded-lg text-[#C7B192] text-sm sm:text-base hover:bg-[#D6C29A]/10 transition-colors"
               >
                 + Adicionar Tarefa
               </button>
@@ -280,31 +282,31 @@ export const CreatePlanning = () => {
           </section>
 
           {/* Legenda de Cores */}
-          <div className="bg-[#EDE5DA] rounded-2xl px-8 py-6 shadow-sm">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+          <div className="bg-[#EDE5DA] rounded-2xl px-4 sm:px-6 md:px-8 py-4 sm:py-6 shadow-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 text-sm">
               {Object.entries(statusColors).map(([key, data]) => (
                 <div key={key} className="flex items-center gap-2">
                   <div 
-                    className="w-5 h-5 rounded-full flex-shrink-0" 
+                    className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex-shrink-0" 
                     style={{ backgroundColor: data.bg }}
                   />
-                  <span className="text-[#3E322A] text-xs">{data.label}</span>
+                  <span className="text-[#3E322A] text-[10px] sm:text-xs">{data.label}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4 justify-center pt-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-6 sm:pt-8">
             <Link
               to="/"
-              className="px-8 py-3 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition-colors"
+              className="px-6 sm:px-8 py-3 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition-colors text-center text-sm sm:text-base"
             >
               Cancelar
             </Link>
             <button
               onClick={savePlanning}
-              className="px-8 py-3 bg-[#B6926C] text-white rounded-full font-semibold hover:bg-[#3C342B] transition-colors shadow-lg"
+              className="px-6 sm:px-8 py-3 bg-[#B6926C] text-white rounded-full font-semibold hover:bg-[#3C342B] transition-colors shadow-lg text-sm sm:text-base"
             >
               Salvar Planejamento
             </button>
