@@ -130,6 +130,13 @@ function App() {
 
         <section id="contato" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
+            <div className="mb-12 bg-red-50 border-2 border-red-400 rounded-xl p-6 max-w-xl mx-auto">
+              <p className="text-red-800 font-semibold text-base leading-relaxed">
+                <span className="block mb-2 text-lg">⚠️ Importante ⚠️</span>
+                Se você está em crise ou pensando em se machucar, ligue para o CVV (Centro de Valorização da Vida) no <a href="tel:188" className="underline hover:text-red-600">188</a> ou acesse <a href="https://cvv.org.br" target="_blank" rel="noopener noreferrer" className="underline hover:text-red-600">cvv.org.br</a>
+              </p>
+            </div>
+
             <h2 className="text-4xl md:text-5xl font-bold text-[#3C342B] mb-4">
               Contato
             </h2>
