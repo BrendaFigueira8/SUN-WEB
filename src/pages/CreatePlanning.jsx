@@ -8,6 +8,8 @@ export const CreatePlanning = () => {
   const [commitments, setCommitments] = useState([{ name: "", status: null }]); // null, 'check', 'x'
   const [weeklyTasks, setWeeklyTasks] = useState([{ name: "", color: null }]); // null, 'green', 'yellow', 'red', 'orange'
   const [hasSavedData, setHasSavedData] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [lastSavedState, setLastSavedState] = useState(null);
   const navigate = useNavigate();
 
   const days = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
@@ -27,8 +29,17 @@ export const CreatePlanning = () => {
       if (data.commitments) setCommitments(data.commitments);
       if (data.weeklyTasks) setWeeklyTasks(data.weeklyTasks);
       setHasSavedData(true);
+      setLastSavedState(JSON.stringify({ habits: data.habits, commitments: data.commitments, weeklyTasks: data.weeklyTasks }));
     }
   }, []);
+
+  // Detectar mudanças não salvas
+  useEffect(() => {
+    if (lastSavedState) {
+      const currentState = JSON.stringify({ habits, commitments, weeklyTasks });
+      setHasUnsavedChanges(currentState !== lastSavedState);
+    }
+  }, [habits, commitments, weeklyTasks, lastSavedState]);
 
   const addHabit = () => {
     setHabits([...habits, { name: "", days: Array(7).fill(false) }]);
@@ -51,6 +62,8 @@ export const CreatePlanning = () => {
     };
     localStorage.setItem('weeklyPlanning', JSON.stringify(planningData));
     setHasSavedData(true);
+    setHasUnsavedChanges(false);
+    setLastSavedState(JSON.stringify({ habits, commitments, weeklyTasks }));
     alert('Planejamento salvo com sucesso!');
     // Redirecionar para a página de visualização
     navigate('/visualizar-planejamento');
@@ -66,10 +79,15 @@ export const CreatePlanning = () => {
       setCommitments([{ name: "", status: null }]);
       setWeeklyTasks([{ name: "", color: null }]);
       setHasSavedData(false);
+      setHasUnsavedChanges(false);
+      setLastSavedState(null);
       
       alert('Planejamento limpo com sucesso!');
     }
   };
+
+  // Determinar se o botão de visualizar deve estar habilitado
+  const canViewPlanning = hasSavedData && !hasUnsavedChanges;
 
   const getColorForDay = (habit, dayIndex) => {
     return habit.days[dayIndex];
@@ -363,17 +381,34 @@ export const CreatePlanning = () => {
             >
               Limpar
             </button>
-            <button
-              onClick={savePlanning}
-              className="px-6 sm:px-8 py-3 bg-[#B6926C] text-white rounded-full font-semibold hover:bg-[#3C342B] transition-colors shadow-lg text-sm sm:text-base"
-            >
-              Salvar Planejamento
-            </button>
+            
+            {hasUnsavedChanges || !hasSavedData ? (
+              <button
+                onClick={savePlanning}
+                className="px-6 sm:px-8 py-3 bg-[#B6926C] text-white rounded-full font-semibold hover:bg-[#3C342B] transition-colors shadow-lg text-sm sm:text-base"
+              >
+                Salvar Planejamento
+              </button>
+            ) : (
+              <div className="relative group">
+                <button
+                  disabled
+                  className="px-6 sm:px-8 py-3 bg-gray-300 text-gray-500 rounded-full font-semibold cursor-not-allowed text-center text-sm sm:text-base"
+                >
+                  Salvar Planejamento
+                </button>
+                {/* Tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+                  Não há alterações para salvar
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-800"></div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Download Button */}
           <div className="flex justify-center pt-4">
-            {hasSavedData ? (
+            {canViewPlanning ? (
               <Link
                 to="/visualizar-planejamento"
                 className="px-6 sm:px-8 py-3 bg-[#3C342B] text-white rounded-full font-semibold hover:bg-[#B6926C] transition-colors shadow-lg text-sm sm:text-base flex items-center justify-center gap-2"
@@ -417,8 +452,10 @@ export const CreatePlanning = () => {
                   Visualizar e Baixar PDF
                 </button>
                 {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                  Salve o planejamento primeiro para visualizar e baixar
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+                  {!hasSavedData 
+                    ? 'Salve o planejamento primeiro para visualizar e baixar' 
+                    : 'Salve as alterações antes de visualizar'}
                   <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-800"></div>
                 </div>
               </div>
