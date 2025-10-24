@@ -71,6 +71,10 @@ export const CreatePlanning = () => {
     if (!contentRef.current) return;
 
     try {
+      // Ocultar elementos que não devem aparecer no PDF
+      const hideElements = contentRef.current.querySelectorAll('.hide-in-pdf');
+      hideElements.forEach(el => el.style.display = 'none');
+
       // Capturar o elemento HTML como imagem
       const canvas = await html2canvas(contentRef.current, {
         scale: 2, // Maior qualidade
@@ -80,6 +84,9 @@ export const CreatePlanning = () => {
         width: contentRef.current.scrollWidth,
         height: contentRef.current.scrollHeight
       });
+
+      // Restaurar elementos ocultos
+      hideElements.forEach(el => el.style.display = '');
 
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({
@@ -192,7 +199,7 @@ export const CreatePlanning = () => {
 
               <div className="space-y-3">
                 {habits.map((habit, habitIndex) => (
-                  <div key={habitIndex} className="grid grid-cols-[1fr_repeat(7,60px)] gap-2 items-center">
+                  <div key={habitIndex} className={`grid grid-cols-[1fr_repeat(7,60px)] gap-2 items-center ${!habit.name ? 'hide-in-pdf' : ''}`}>
                     <input
                       type="text"
                       placeholder="Ex: Tomar vitamina B12"
@@ -202,7 +209,7 @@ export const CreatePlanning = () => {
                         newHabits[habitIndex].name = e.target.value;
                         setHabits(newHabits);
                       }}
-                      className="px-3 py-2 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm"
+                      className="px-3 py-3 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm"
                     />
                     
                     {days.map((day, dayIndex) => (
@@ -225,7 +232,7 @@ export const CreatePlanning = () => {
             {/* Layout Mobile/Tablet - Lista Vertical */}
             <div className="md:hidden space-y-6">
               {habits.map((habit, habitIndex) => (
-                <div key={habitIndex} className="space-y-3">
+                <div key={habitIndex} className={`space-y-3 ${!habit.name ? 'hide-in-pdf' : ''}`}>
                   <input
                     type="text"
                     placeholder="Ex: Tomar vitamina B12"
@@ -235,7 +242,7 @@ export const CreatePlanning = () => {
                       newHabits[habitIndex].name = e.target.value;
                       setHabits(newHabits);
                     }}
-                    className="w-full px-3 py-2.5 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm font-medium"
+                    className="w-full px-3 py-3 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm font-medium"
                   />
                   
                   <div className="grid grid-cols-7 gap-2">
@@ -263,7 +270,7 @@ export const CreatePlanning = () => {
               
             <button
               onClick={addHabit}
-              className="w-full py-2 border-2 border-dashed border-[#8AA87B] rounded-lg text-[#8AA87B] text-sm sm:text-base hover:bg-[#9DBF93]/10 transition-colors mt-3 sm:mt-4"
+              className="hide-in-pdf w-full py-2 border-2 border-dashed border-[#8AA87B] rounded-lg text-[#8AA87B] text-sm sm:text-base hover:bg-[#9DBF93]/10 transition-colors mt-3 sm:mt-4"
             >
               + Adicionar Hábito
             </button>
@@ -277,7 +284,7 @@ export const CreatePlanning = () => {
             
             <div className="space-y-3 sm:space-y-4">
               {commitments.map((commitment, index) => (
-                <div key={index} className="flex items-center gap-2 sm:gap-3">
+                <div key={index} className={`flex items-center gap-2 sm:gap-3 ${!commitment.name ? 'hide-in-pdf' : ''}`}>
                   <input
                     type="text"
                     placeholder="Ex: Vôlei - terça"
@@ -319,7 +326,7 @@ export const CreatePlanning = () => {
               
               <button
                 onClick={addCommitment}
-                className="w-full py-2 border-2 border-dashed border-[#D68847] rounded-lg text-[#D68847] text-sm sm:text-base hover:bg-[#E7A76B]/10 transition-colors"
+                className="hide-in-pdf w-full py-2 border-2 border-dashed border-[#D68847] rounded-lg text-[#D68847] text-sm sm:text-base hover:bg-[#E7A76B]/10 transition-colors"
               >
                 + Adicionar Compromisso
               </button>
@@ -334,7 +341,7 @@ export const CreatePlanning = () => {
             
             <div className="space-y-3 sm:space-y-4">
               {weeklyTasks.map((task, index) => (
-                <div key={index} className="flex items-center gap-2 sm:gap-3">
+                <div key={index} className={`flex items-center gap-2 sm:gap-3 ${!task.name ? 'hide-in-pdf' : ''}`}>
                   <input
                     type="text"
                     placeholder="Ex: Sol na varanda"
@@ -375,7 +382,7 @@ export const CreatePlanning = () => {
               
               <button
                 onClick={addWeeklyTask}
-                className="w-full py-2 border-2 border-dashed border-[#C7B192] rounded-lg text-[#C7B192] text-sm sm:text-base hover:bg-[#D6C29A]/10 transition-colors"
+                className="hide-in-pdf w-full py-2 border-2 border-dashed border-[#C7B192] rounded-lg text-[#C7B192] text-sm sm:text-base hover:bg-[#D6C29A]/10 transition-colors"
               >
                 + Adicionar Tarefa
               </button>
@@ -398,7 +405,7 @@ export const CreatePlanning = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-6 sm:pt-8">
+          <div className="hide-in-pdf flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-6 sm:pt-8">
             <button
               onClick={clearPlanning}
               className="px-6 sm:px-8 py-3 bg-red-100 text-red-700 rounded-full font-semibold hover:bg-red-200 transition-colors text-center text-sm sm:text-base"
@@ -414,7 +421,7 @@ export const CreatePlanning = () => {
           </div>
 
           {/* Download PDF Button */}
-          <div className="flex justify-center pt-4">
+          <div className="hide-in-pdf flex justify-center pt-4">
             <button
               onClick={downloadPDF}
               className="px-6 sm:px-8 py-3 bg-[#3C342B] text-white rounded-full font-semibold hover:bg-[#B6926C] transition-colors shadow-lg text-sm sm:text-base flex items-center gap-2"
