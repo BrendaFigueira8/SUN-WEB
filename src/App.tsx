@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { HabitTracker } from "./components/HabitTracker";
 import { CommitmentsList } from "./components/CommitmentsList";
 import { WeeklyTasks } from "./components/WeeklyTasks";
@@ -33,6 +34,22 @@ function App() {
                   >
                     Modelo
                   </a>
+                </li>
+                <li>
+                  <Link
+                    to="/criar-planejamento"
+                    className="text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
+                  >
+                    Criar Planejamento
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/visualizar-planejamento"
+                    className="text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
+                  >
+                    Visualizar Planejamento
+                  </Link>
                 </li>
                 <li>
                   <a
@@ -88,6 +105,24 @@ function App() {
                   >
                     Modelo
                   </a>
+                </li>
+                <li>
+                  <Link
+                    to="/criar-planejamento"
+                    className="block text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Criar Planejamento
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/visualizar-planejamento"
+                    className="block text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Visualizar Planejamento
+                  </Link>
                 </li>
                 <li>
                   <a
