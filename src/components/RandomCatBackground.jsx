@@ -7,7 +7,10 @@ export function RandomCatBackground() {
   const catPositions = useMemo(() => {
     const positions = [];
     const minDistance = 15; // Distância mínima entre imagens em % da tela
-    
+    // Detecta largura da tela
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 700;
+    const maxCats = isMobile ? 20 : 40;
+
     // Função para verificar se duas posições se sobrepõem
     const isOverlapping = (pos1, pos2) => {
       const distance = Math.sqrt(
@@ -16,17 +19,17 @@ export function RandomCatBackground() {
       );
       return distance < minDistance;
     };
-    
+
     // Função para verificar se uma nova posição é válida
     const isValidPosition = (newPos) => {
       return positions.every(existingPos => !isOverlapping(newPos, existingPos));
     };
-    
-    // Gerar 40 posições não sobrepostas
+
+    // Gerar posições não sobrepostas
     let attempts = 0;
     const maxAttempts = 1000; // Limite de tentativas para evitar loop infinito
-    
-    while (positions.length < 40 && attempts < maxAttempts) {
+
+    while (positions.length < maxCats && attempts < maxAttempts) {
       const candidate = {
         id: positions.length,
         image: positions.length % 2 === 0 ? cat1 : cat2,
@@ -36,14 +39,14 @@ export function RandomCatBackground() {
         rotation: Math.random() * 360, // 0-360 graus
         animationDelay: Math.random() * 60 // 0-60s
       };
-      
+
       if (isValidPosition(candidate)) {
         positions.push(candidate);
       }
-      
+
       attempts++;
     }
-    
+
     return positions;
   }, []); // Array vazio = gera apenas uma vez por montagem do componente
 
