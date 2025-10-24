@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { RandomCatBackground } from "../components/RandomCatBackground";
 
 const logo = new URL("../assets/new-logo.webp", import.meta.url).href;
 
@@ -78,7 +79,7 @@ export const ViewPlanning = () => {
 
   if (!hasData) {
     return (
-      <div className="min-h-screen bg-[#FBF5DF] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FBF5DF] cat-pattern-bg flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-[#3C342B] mb-4">Nenhum planejamento encontrado</h1>
           <p className="text-[#7C6E65] mb-8">Crie seu primeiro planejamento para visualizar e baixar.</p>
@@ -95,6 +96,7 @@ export const ViewPlanning = () => {
 
   return (
     <div className="min-h-screen bg-[#FBF5DF]">
+      <RandomCatBackground />
       {/* Header */}
       <header className="bg-white/90 backdrop-blur-md shadow-sm py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

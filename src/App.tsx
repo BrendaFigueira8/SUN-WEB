@@ -3,6 +3,7 @@ import { HabitTracker } from "./components/HabitTracker";
 import { CommitmentsList } from "./components/CommitmentsList";
 import { WeeklyTasks } from "./components/WeeklyTasks";
 import { StatusLegend } from "./components/StatusLegend";
+import { RandomCatBackground } from "./components/RandomCatBackground";
 
 const logo = new URL("./assets/new-logo.webp", import.meta.url).href;
 
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#FBF5DF] flex flex-col">
+      <RandomCatBackground />
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center h-16">

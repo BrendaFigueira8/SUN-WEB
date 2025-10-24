@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { RandomCatBackground } from "../components/RandomCatBackground";
 
 const logo = new URL("../assets/new-logo.webp", import.meta.url).href;
 
@@ -113,6 +114,7 @@ export const CreatePlanning = () => {
 
   return (
     <div className="min-h-screen bg-[#FBF5DF]">
+      <RandomCatBackground />
       {/* Header */}
       <header className="bg-white/90 backdrop-blur-md shadow-sm py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
