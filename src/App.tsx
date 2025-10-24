@@ -4,7 +4,7 @@ import { CommitmentsList } from "./components/CommitmentsList";
 import { WeeklyTasks } from "./components/WeeklyTasks";
 import { StatusLegend } from "./components/StatusLegend";
 
-const logo = new URL("./assets/logo.png", import.meta.url).href;
+const logo = new URL("./assets/new-logo.webp", import.meta.url).href;
 
 function App() {
   // contact form removed — WeeklyPlanner will be displayed below
