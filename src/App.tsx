@@ -73,10 +73,10 @@ function App() {
               <div className="h-1 w-32 bg-gradient-to-r from-[#B6926C] to-[#E9D7A5] mx-auto rounded-full mb-16" />
             </div>
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-              <div className="w-full md:w-1/3 flex justify-center">
-                <img src={logo} className="w-64 h-64 md:w-96 md:h-96 object-contain" alt="Logo Sun" />
+              <div className="flex justify-center shrink-0">
+                <img src={logo} className="h-[250px] w-auto object-contain" alt="Logo Sun" />
               </div>
-              <article className="w-full md:w-2/3 bg-white rounded-2xl shadow-lg p-8 md:p-12 hover:shadow-xl transition-shadow duration-300">
+              <article className="flex-1 bg-white rounded-2xl shadow-lg p-8 md:p-12 hover:shadow-xl transition-shadow duration-300">
                 <p className="text-lg text-gray-700 leading-relaxed">
                   SUN é uma iniciativa que oferece suporte para quem está
                   enfrentando desafios da vida, como ansiedade, depressão ou falta
