@@ -50,6 +50,20 @@ export const CreatePlanning = () => {
     alert('Planejamento salvo com sucesso!');
   };
 
+  const clearPlanning = () => {
+    if (window.confirm('Tem certeza que deseja limpar todo o planejamento? Esta ação não pode ser desfeita.')) {
+      // Limpar localStorage
+      localStorage.removeItem('weeklyPlanning');
+      
+      // Resetar estados para valores iniciais
+      setHabits([{ name: "", days: Array(7).fill(null) }]);
+      setCommitments([{ name: "", status: null }]);
+      setWeeklyTasks([{ name: "", color: null }]);
+      
+      alert('Planejamento limpo com sucesso!');
+    }
+  };
+
   const getColorForDay = (habit, dayIndex) => {
     return habit.days[dayIndex];
   };
@@ -336,12 +350,12 @@ export const CreatePlanning = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-6 sm:pt-8">
-            <Link
-              to="/"
-              className="px-6 sm:px-8 py-3 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition-colors text-center text-sm sm:text-base"
+            <button
+              onClick={clearPlanning}
+              className="px-6 sm:px-8 py-3 bg-red-100 text-red-700 rounded-full font-semibold hover:bg-red-200 transition-colors text-center text-sm sm:text-base"
             >
-              Cancelar
-            </Link>
+              Limpar
+            </button>
             <button
               onClick={savePlanning}
               className="px-6 sm:px-8 py-3 bg-[#B6926C] text-white rounded-full font-semibold hover:bg-[#3C342B] transition-colors shadow-lg text-sm sm:text-base"
