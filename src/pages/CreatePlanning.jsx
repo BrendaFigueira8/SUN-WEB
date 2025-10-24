@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const logo = new URL("../assets/new-logo.webp", import.meta.url).href;
 
@@ -8,6 +9,7 @@ export const CreatePlanning = () => {
   const [habits, setHabits] = useState([{ name: "", days: Array(7).fill(null) }]);
   const [commitments, setCommitments] = useState([{ name: "", status: null }]); // null, 'check', 'x'
   const [weeklyTasks, setWeeklyTasks] = useState([{ name: "", color: null }]); // null, 'green', 'yellow', 'red', 'orange'
+  const contentRef = useRef(null);
 
   const days = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   const statusColors = {
@@ -65,177 +67,50 @@ export const CreatePlanning = () => {
     }
   };
 
-  const downloadPDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    let yPos = 20;
+  const downloadPDF = async () => {
+    if (!contentRef.current) return;
 
-    // Título
-    doc.setFontSize(22);
-    doc.setTextColor(60, 52, 43); // #3C342B
-    doc.text('Meu Planejamento Semanal', pageWidth / 2, yPos, { align: 'center' });
-    yPos += 15;
+    try {
+      // Capturar o elemento HTML como imagem
+      const canvas = await html2canvas(contentRef.current, {
+        scale: 2, // Maior qualidade
+        useCORS: true,
+        backgroundColor: '#FBF5DF',
+        logging: false,
+        width: contentRef.current.scrollWidth,
+        height: contentRef.current.scrollHeight
+      });
 
-    // Data de criação
-    doc.setFontSize(10);
-    doc.setTextColor(124, 110, 101); // #7C6E65
-    const now = new Date().toLocaleDateString('pt-BR', { 
-      day: '2-digit', 
-      month: 'long', 
-      year: 'numeric' 
-    });
-    doc.text(`Criado em: ${now}`, pageWidth / 2, yPos, { align: 'center' });
-    yPos += 15;
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
 
-    // 1. Hábitos Diários
-    doc.setFontSize(16);
-    doc.setTextColor(33, 50, 31); // #21321F
-    doc.text('1. Hábitos Diários', 15, yPos);
-    yPos += 8;
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
 
-    const daysAbbr = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-    
-    habits.forEach((habit, index) => {
-      if (habit.name) {
-        doc.setFontSize(11);
-        doc.setTextColor(0, 0, 0);
-        doc.text(`• ${habit.name}`, 20, yPos);
-        yPos += 5;
+      // Adicionar primeira página
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
 
-        // Dias da semana com cores
-        let xPos = 25;
-        daysAbbr.forEach((day, dayIndex) => {
-          doc.setFontSize(8);
-          doc.text(day, xPos, yPos);
-          
-          const color = habit.days[dayIndex];
-          if (color === 'green') {
-            doc.setFillColor(127, 192, 108); // #7FC06C
-          } else if (color === 'yellow') {
-            doc.setFillColor(226, 193, 90); // #E2C15A
-          } else if (color === 'red') {
-            doc.setFillColor(217, 74, 74); // #D94A4A
-          } else if (color === 'orange') {
-            doc.setFillColor(214, 136, 71); // #D68847
-          } else {
-            doc.setFillColor(255, 255, 255);
-          }
-          
-          doc.circle(xPos + 5, yPos + 3, 2, 'F');
-          doc.setDrawColor(200, 200, 200);
-          doc.circle(xPos + 5, yPos + 3, 2, 'S');
-          
-          xPos += 18;
-        });
-        
-        yPos += 8;
+      // Adicionar páginas adicionais se necessário
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
       }
-    });
 
-    yPos += 5;
-
-    // 2. Compromissos
-    if (yPos > 250) {
-      doc.addPage();
-      yPos = 20;
+      pdf.save('planejamento-semanal.pdf');
+    } catch (error) {
+      console.error('Erro ao gerar PDF:', error);
+      alert('Erro ao gerar PDF. Tente novamente.');
     }
-
-    doc.setFontSize(16);
-    doc.setTextColor(63, 46, 32); // #3F2E20
-    doc.text('2. Compromissos', 15, yPos);
-    yPos += 8;
-
-    commitments.forEach((commitment, index) => {
-      if (commitment.name) {
-        doc.setFontSize(11);
-        doc.setTextColor(0, 0, 0);
-        
-        let statusIcon = '';
-        if (commitment.status === 'check') {
-          statusIcon = '✓';
-          doc.setTextColor(127, 192, 108); // Verde
-        } else if (commitment.status === 'x') {
-          statusIcon = '✗';
-          doc.setTextColor(217, 74, 74); // Vermelho
-        }
-        
-        doc.text(`${statusIcon} ${commitment.name}`, 20, yPos);
-        yPos += 6;
-      }
-    });
-
-    yPos += 5;
-
-    // 3. Tarefas da Semana
-    if (yPos > 250) {
-      doc.addPage();
-      yPos = 20;
-    }
-
-    doc.setFontSize(16);
-    doc.setTextColor(74, 63, 54); // #4A3F36
-    doc.text('3. Tarefas da Semana', 15, yPos);
-    yPos += 8;
-
-    weeklyTasks.forEach((task, index) => {
-      if (task.name) {
-        doc.setFontSize(11);
-        doc.setTextColor(0, 0, 0);
-        
-        // Desenhar círculo colorido
-        const xCircle = 17;
-        if (task.color === 'green') {
-          doc.setFillColor(127, 192, 108);
-        } else if (task.color === 'yellow') {
-          doc.setFillColor(226, 193, 90);
-        } else if (task.color === 'red') {
-          doc.setFillColor(217, 74, 74);
-        } else if (task.color === 'orange') {
-          doc.setFillColor(214, 136, 71);
-        } else {
-          doc.setFillColor(255, 255, 255);
-        }
-        
-        doc.circle(xCircle, yPos - 1.5, 1.5, 'F');
-        doc.setDrawColor(200, 200, 200);
-        doc.circle(xCircle, yPos - 1.5, 1.5, 'S');
-        
-        doc.text(task.name, 22, yPos);
-        yPos += 6;
-      }
-    });
-
-    // Legenda
-    if (yPos > 240) {
-      doc.addPage();
-      yPos = 20;
-    }
-
-    yPos += 10;
-    doc.setFontSize(12);
-    doc.setTextColor(62, 50, 42);
-    doc.text('Legenda de Cores:', 15, yPos);
-    yPos += 7;
-
-    const legendItems = [
-      { color: [127, 192, 108], label: 'Verde: consegui fazer' },
-      { color: [226, 193, 90], label: 'Amarelo: tempo livre' },
-      { color: [217, 74, 74], label: 'Vermelho: foi cancelado' },
-      { color: [214, 136, 71], label: 'Laranja: adiado' }
-    ];
-
-    legendItems.forEach((item) => {
-      doc.setFillColor(...item.color);
-      doc.circle(17, yPos - 1.5, 1.5, 'F');
-      
-      doc.setFontSize(9);
-      doc.setTextColor(0, 0, 0);
-      doc.text(item.label, 22, yPos);
-      yPos += 5;
-    });
-
-    // Salvar PDF
-    doc.save('planejamento-semanal.pdf');
   };
 
   const getColorForDay = (habit, dayIndex) => {
@@ -297,7 +172,7 @@ export const CreatePlanning = () => {
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div ref={contentRef} className="space-y-8">
           {/* Hábitos Diários */}
           <section className="bg-white rounded-xl border-4 border-[#8AA87B] p-4 sm:p-6 shadow-sm">
             <div className="bg-[#9DBF93] -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 px-4 sm:px-6 py-3 sm:py-4 rounded-t-lg mb-4 sm:mb-6">
