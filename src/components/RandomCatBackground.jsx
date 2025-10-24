@@ -30,20 +30,20 @@ export function RandomCatBackground() {
     const maxAttempts = 1000; // Limite de tentativas para evitar loop infinito
 
     while (positions.length < maxCats && attempts < maxAttempts) {
+      const baseSize = isMobile ? 60 : 80;
+      const sizeRange = isMobile ? 30 : 50;
       const candidate = {
         id: positions.length,
         image: positions.length % 2 === 0 ? cat1 : cat2,
         top: Math.random() * 100, // 0-100%
         left: Math.random() * 100, // 0-100%
-        size: 80 + Math.random() * 50, // 80-130px
+        size: baseSize + Math.random() * sizeRange, // menor no mobile
         rotation: Math.random() * 360, // 0-360 graus
         animationDelay: Math.random() * 60 // 0-60s
       };
-
       if (isValidPosition(candidate)) {
         positions.push(candidate);
       }
-
       attempts++;
     }
 
