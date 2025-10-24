@@ -1,7 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const logo = new URL("../assets/new-logo.webp", import.meta.url).href;
 
@@ -9,7 +7,7 @@ export const CreatePlanning = () => {
   const [habits, setHabits] = useState([{ name: "", days: Array(7).fill(null) }]);
   const [commitments, setCommitments] = useState([{ name: "", status: null }]); // null, 'check', 'x'
   const [weeklyTasks, setWeeklyTasks] = useState([{ name: "", color: null }]); // null, 'green', 'yellow', 'red', 'orange'
-  const contentRef = useRef(null);
+  const navigate = useNavigate();
 
   const days = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   const statusColors = {
@@ -51,6 +49,8 @@ export const CreatePlanning = () => {
     };
     localStorage.setItem('weeklyPlanning', JSON.stringify(planningData));
     alert('Planejamento salvo com sucesso!');
+    // Redirecionar para a página de visualização
+    navigate('/visualizar-planejamento');
   };
 
   const clearPlanning = () => {
@@ -64,63 +64,6 @@ export const CreatePlanning = () => {
       setWeeklyTasks([{ name: "", color: null }]);
       
       alert('Planejamento limpo com sucesso!');
-    }
-  };
-
-  const downloadPDF = async () => {
-    if (!contentRef.current) return;
-
-    try {
-      // Ocultar elementos que não devem aparecer no PDF
-      const hideElements = contentRef.current.querySelectorAll('.hide-in-pdf');
-      hideElements.forEach(el => el.style.display = 'none');
-
-      // Adicionar classe para ocultar placeholders
-      contentRef.current.classList.add('hide-placeholders');
-
-      // Capturar o elemento HTML como imagem
-      const canvas = await html2canvas(contentRef.current, {
-        scale: 2, // Maior qualidade
-        useCORS: true,
-        backgroundColor: '#FBF5DF',
-        logging: false,
-        width: contentRef.current.scrollWidth,
-        height: contentRef.current.scrollHeight
-      });
-
-      // Restaurar elementos ocultos e remover classe
-      hideElements.forEach(el => el.style.display = '');
-      contentRef.current.classList.remove('hide-placeholders');
-
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-      });
-
-      const imgWidth = 210; // A4 width in mm
-      const pageHeight = 297; // A4 height in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      // Adicionar primeira página
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      // Adicionar páginas adicionais se necessário
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-
-      pdf.save('planejamento-semanal.pdf');
-    } catch (error) {
-      console.error('Erro ao gerar PDF:', error);
-      alert('Erro ao gerar PDF. Tente novamente.');
     }
   };
 
@@ -183,7 +126,7 @@ export const CreatePlanning = () => {
           </p>
         </div>
 
-        <div ref={contentRef} className="space-y-8">
+        <div className="space-y-8">
           {/* Hábitos Diários */}
           <section className="bg-white rounded-xl border-4 border-[#8AA87B] p-4 sm:p-6 shadow-sm">
             <div className="bg-[#9DBF93] -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 px-4 sm:px-6 py-3 sm:py-4 rounded-t-lg mb-4 sm:mb-6">
@@ -274,7 +217,7 @@ export const CreatePlanning = () => {
               
             <button
               onClick={addHabit}
-              className="hide-in-pdf w-full py-2 border-2 border-dashed border-[#8AA87B] rounded-lg text-[#8AA87B] text-sm sm:text-base hover:bg-[#9DBF93]/10 transition-colors mt-3 sm:mt-4"
+              className="w-full py-2 border-2 border-dashed border-[#8AA87B] rounded-lg text-[#8AA87B] text-sm sm:text-base hover:bg-[#9DBF93]/10 transition-colors mt-3 sm:mt-4"
             >
               + Adicionar Hábito
             </button>
@@ -330,7 +273,7 @@ export const CreatePlanning = () => {
               
               <button
                 onClick={addCommitment}
-                className="hide-in-pdf w-full py-2 border-2 border-dashed border-[#D68847] rounded-lg text-[#D68847] text-sm sm:text-base hover:bg-[#E7A76B]/10 transition-colors"
+                className="w-full py-2 border-2 border-dashed border-[#D68847] rounded-lg text-[#D68847] text-sm sm:text-base hover:bg-[#E7A76B]/10 transition-colors"
               >
                 + Adicionar Compromisso
               </button>
@@ -386,7 +329,7 @@ export const CreatePlanning = () => {
               
               <button
                 onClick={addWeeklyTask}
-                className="hide-in-pdf w-full py-2 border-2 border-dashed border-[#C7B192] rounded-lg text-[#C7B192] text-sm sm:text-base hover:bg-[#D6C29A]/10 transition-colors"
+                className="w-full py-2 border-2 border-dashed border-[#C7B192] rounded-lg text-[#C7B192] text-sm sm:text-base hover:bg-[#D6C29A]/10 transition-colors"
               >
                 + Adicionar Tarefa
               </button>
@@ -409,7 +352,7 @@ export const CreatePlanning = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="hide-in-pdf flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-6 sm:pt-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-6 sm:pt-8">
             <button
               onClick={clearPlanning}
               className="px-6 sm:px-8 py-3 bg-red-100 text-red-700 rounded-full font-semibold hover:bg-red-200 transition-colors text-center text-sm sm:text-base"
@@ -424,11 +367,11 @@ export const CreatePlanning = () => {
             </button>
           </div>
 
-          {/* Download PDF Button */}
-          <div className="hide-in-pdf flex justify-center pt-4">
-            <button
-              onClick={downloadPDF}
-              className="px-6 sm:px-8 py-3 bg-[#3C342B] text-white rounded-full font-semibold hover:bg-[#B6926C] transition-colors shadow-lg text-sm sm:text-base flex items-center gap-2"
+          {/* Download Button */}
+          <div className="flex justify-center pt-4">
+            <Link
+              to="/visualizar-planejamento"
+              className="px-6 sm:px-8 py-3 bg-[#3C342B] text-white rounded-full font-semibold hover:bg-[#B6926C] transition-colors shadow-lg text-sm sm:text-base flex items-center justify-center gap-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -444,8 +387,8 @@ export const CreatePlanning = () => {
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
-              Baixar Planejamento
-            </button>
+              Visualizar e Baixar PDF
+            </Link>
           </div>
         </div>
       </main>
