@@ -7,6 +7,7 @@ export const CreatePlanning = () => {
   const [habits, setHabits] = useState([{ name: "", days: Array(7).fill(null) }]);
   const [commitments, setCommitments] = useState([{ name: "", status: null }]); // null, 'check', 'x'
   const [weeklyTasks, setWeeklyTasks] = useState([{ name: "", color: null }]); // null, 'green', 'yellow', 'red', 'orange'
+  const [hasSavedData, setHasSavedData] = useState(false);
   const navigate = useNavigate();
 
   const days = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
@@ -25,6 +26,7 @@ export const CreatePlanning = () => {
       if (data.habits) setHabits(data.habits);
       if (data.commitments) setCommitments(data.commitments);
       if (data.weeklyTasks) setWeeklyTasks(data.weeklyTasks);
+      setHasSavedData(true);
     }
   }, []);
 
@@ -48,6 +50,7 @@ export const CreatePlanning = () => {
       savedAt: new Date().toISOString()
     };
     localStorage.setItem('weeklyPlanning', JSON.stringify(planningData));
+    setHasSavedData(true);
     alert('Planejamento salvo com sucesso!');
     // Redirecionar para a página de visualização
     navigate('/visualizar-planejamento');
@@ -62,6 +65,7 @@ export const CreatePlanning = () => {
       setHabits([{ name: "", days: Array(7).fill(null) }]);
       setCommitments([{ name: "", status: null }]);
       setWeeklyTasks([{ name: "", color: null }]);
+      setHasSavedData(false);
       
       alert('Planejamento limpo com sucesso!');
     }
@@ -369,26 +373,56 @@ export const CreatePlanning = () => {
 
           {/* Download Button */}
           <div className="flex justify-center pt-4">
-            <Link
-              to="/visualizar-planejamento"
-              className="px-6 sm:px-8 py-3 bg-[#3C342B] text-white rounded-full font-semibold hover:bg-[#B6926C] transition-colors shadow-lg text-sm sm:text-base flex items-center justify-center gap-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {hasSavedData ? (
+              <Link
+                to="/visualizar-planejamento"
+                className="px-6 sm:px-8 py-3 bg-[#3C342B] text-white rounded-full font-semibold hover:bg-[#B6926C] transition-colors shadow-lg text-sm sm:text-base flex items-center justify-center gap-2"
               >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Visualizar e Baixar PDF
-            </Link>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Visualizar e Baixar PDF
+              </Link>
+            ) : (
+              <div className="relative group">
+                <button
+                  disabled
+                  className="px-6 sm:px-8 py-3 bg-gray-300 text-gray-500 rounded-full font-semibold cursor-not-allowed text-sm sm:text-base flex items-center justify-center gap-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Visualizar e Baixar PDF
+                </button>
+                {/* Tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                  Salve o planejamento primeiro para visualizar e baixar
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-800"></div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>
