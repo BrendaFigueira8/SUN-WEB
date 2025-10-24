@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Ocultar placeholders quando estiver gerando PDF */
+.hide-placeholders input::placeholder {
+  color: transparent !important;
+}

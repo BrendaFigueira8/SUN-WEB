@@ -75,6 +75,9 @@ export const CreatePlanning = () => {
       const hideElements = contentRef.current.querySelectorAll('.hide-in-pdf');
       hideElements.forEach(el => el.style.display = 'none');
 
+      // Adicionar classe para ocultar placeholders
+      contentRef.current.classList.add('hide-placeholders');
+
       // Capturar o elemento HTML como imagem
       const canvas = await html2canvas(contentRef.current, {
         scale: 2, // Maior qualidade
@@ -85,8 +88,9 @@ export const CreatePlanning = () => {
         height: contentRef.current.scrollHeight
       });
 
-      // Restaurar elementos ocultos
+      // Restaurar elementos ocultos e remover classe
       hideElements.forEach(el => el.style.display = '');
+      contentRef.current.classList.remove('hide-placeholders');
 
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({
@@ -199,7 +203,7 @@ export const CreatePlanning = () => {
 
               <div className="space-y-3">
                 {habits.map((habit, habitIndex) => (
-                  <div key={habitIndex} className={`grid grid-cols-[1fr_repeat(7,60px)] gap-2 items-center ${!habit.name ? 'hide-in-pdf' : ''}`}>
+                  <div key={habitIndex} className="grid grid-cols-[1fr_repeat(7,60px)] gap-2 items-center">
                     <input
                       type="text"
                       placeholder="Ex: Tomar vitamina B12"
@@ -232,7 +236,7 @@ export const CreatePlanning = () => {
             {/* Layout Mobile/Tablet - Lista Vertical */}
             <div className="md:hidden space-y-6">
               {habits.map((habit, habitIndex) => (
-                <div key={habitIndex} className={`space-y-3 ${!habit.name ? 'hide-in-pdf' : ''}`}>
+                <div key={habitIndex} className="space-y-3">
                   <input
                     type="text"
                     placeholder="Ex: Tomar vitamina B12"
@@ -284,7 +288,7 @@ export const CreatePlanning = () => {
             
             <div className="space-y-3 sm:space-y-4">
               {commitments.map((commitment, index) => (
-                <div key={index} className={`flex items-center gap-2 sm:gap-3 ${!commitment.name ? 'hide-in-pdf' : ''}`}>
+                <div key={index} className="flex items-center gap-2 sm:gap-3">
                   <input
                     type="text"
                     placeholder="Ex: Vôlei - terça"
@@ -341,7 +345,7 @@ export const CreatePlanning = () => {
             
             <div className="space-y-3 sm:space-y-4">
               {weeklyTasks.map((task, index) => (
-                <div key={index} className={`flex items-center gap-2 sm:gap-3 ${!task.name ? 'hide-in-pdf' : ''}`}>
+                <div key={index} className="flex items-center gap-2 sm:gap-3">
                   <input
                     type="text"
                     placeholder="Ex: Sol na varanda"
