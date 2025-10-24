@@ -116,38 +116,37 @@ export const CreatePlanning = () => {
               <h2 className="text-lg sm:text-xl font-bold text-[#21321F]">1. Hábitos Diários</h2>
             </div>
             
-            {/* Cabeçalho com dias da semana fixos */}
-            <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
-              <div className="grid grid-cols-[minmax(120px,1fr)_repeat(7,40px)] sm:grid-cols-[1fr_repeat(7,50px)] md:grid-cols-[1fr_repeat(7,60px)] gap-1 sm:gap-2 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-2 border-[#8AA87B] min-w-[600px] sm:min-w-0">
-                <div className="font-semibold text-[#21321F] text-sm sm:text-base">Hábito</div>
+            {/* Layout Desktop - Tabela */}
+            <div className="hidden md:block">
+              <div className="grid grid-cols-[1fr_repeat(7,60px)] gap-2 mb-4 pb-3 border-b-2 border-[#8AA87B]">
+                <div className="font-semibold text-[#21321F]">Hábito</div>
                 {days.map((day, index) => (
-                  <div key={index} className="text-center text-[10px] sm:text-xs font-medium text-gray-600">
+                  <div key={index} className="text-center text-xs font-medium text-gray-600">
                     {day}
                   </div>
                 ))}
               </div>
 
-              <div className="space-y-2 sm:space-y-3 min-w-[600px] sm:min-w-0">
+              <div className="space-y-3">
                 {habits.map((habit, habitIndex) => (
-                  <div key={habitIndex} className="grid grid-cols-[minmax(120px,1fr)_repeat(7,40px)] sm:grid-cols-[1fr_repeat(7,50px)] md:grid-cols-[1fr_repeat(7,60px)] gap-1 sm:gap-2 items-center">
+                  <div key={habitIndex} className="grid grid-cols-[1fr_repeat(7,60px)] gap-2 items-center">
                     <input
                       type="text"
-                      placeholder="Ex: Vitamina B12"
+                      placeholder="Ex: Tomar vitamina B12"
                       value={habit.name}
                       onChange={(e) => {
                         const newHabits = [...habits];
                         newHabits[habitIndex].name = e.target.value;
                         setHabits(newHabits);
                       }}
-                      className="px-2 sm:px-3 py-2 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-xs sm:text-sm"
+                      className="px-3 py-2 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm"
                     />
                     
-                    {/* Bolinhas para cada dia */}
                     {days.map((day, dayIndex) => (
                       <div key={dayIndex} className="flex justify-center">
                         <button
                           onClick={() => cycleColorForDay(habitIndex, dayIndex)}
-                          className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full border-2 border-gray-300 cursor-pointer hover:border-[#8AA87B] transition-all active:scale-95 hover:scale-110"
+                          className="w-8 h-8 rounded-full border-2 border-gray-300 cursor-pointer hover:border-[#8AA87B] transition-all hover:scale-110"
                           style={{ 
                             backgroundColor: getColorForDay(habit, dayIndex) ? statusColors[getColorForDay(habit, dayIndex)].bg : 'white'
                           }}
@@ -158,6 +157,45 @@ export const CreatePlanning = () => {
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Layout Mobile/Tablet - Lista Vertical */}
+            <div className="md:hidden space-y-6">
+              {habits.map((habit, habitIndex) => (
+                <div key={habitIndex} className="space-y-3">
+                  <input
+                    type="text"
+                    placeholder="Ex: Tomar vitamina B12"
+                    value={habit.name}
+                    onChange={(e) => {
+                      const newHabits = [...habits];
+                      newHabits[habitIndex].name = e.target.value;
+                      setHabits(newHabits);
+                    }}
+                    className="w-full px-3 py-2.5 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm font-medium"
+                  />
+                  
+                  <div className="grid grid-cols-7 gap-2">
+                    {days.map((day, dayIndex) => (
+                      <div key={dayIndex} className="flex flex-col items-center gap-1.5">
+                        <span className="text-[10px] font-medium text-gray-600">{day}</span>
+                        <button
+                          onClick={() => cycleColorForDay(habitIndex, dayIndex)}
+                          className="w-9 h-9 rounded-full border-2 border-gray-300 cursor-pointer active:scale-95 transition-all"
+                          style={{ 
+                            backgroundColor: getColorForDay(habit, dayIndex) ? statusColors[getColorForDay(habit, dayIndex)].bg : 'white'
+                          }}
+                          title={`${day}`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {habitIndex < habits.length - 1 && (
+                    <div className="border-b border-gray-200 pt-3" />
+                  )}
+                </div>
+              ))}
             </div>
               
             <button
