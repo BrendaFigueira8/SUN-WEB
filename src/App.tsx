@@ -21,6 +21,7 @@ function App() {
               <ul className="flex items-center justify-center space-x-12">
                 <li>
                   <a
+                  //mudança no header - ajuste das cores das letras
                     href="#sobre"
                     className="text-gray-700 hover:text-[#7C6E65] transition-colors duration-200 font-medium"
                   >
