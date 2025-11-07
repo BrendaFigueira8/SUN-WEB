@@ -1,22 +1,27 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { HabitTracker } from "./components/HabitTracker";
-import { CommitmentsList } from "./components/CommitmentsList";
-import { WeeklyTasks } from "./components/WeeklyTasks";
-import { StatusLegend } from "./components/StatusLegend";
-import { RandomCatBackground } from "./components/RandomCatBackground";
+import { useState } from "react"; // importa hook useState para controle de estado local 
+import { Link } from "react-router-dom"; // importa Link para navegação entre rotas internas 
+import { HabitTracker } from "./components/HabitTracker"; // importa coponente HabitTracker
+import { CommitmentsList } from "./components/CommitmentsList"; // importa componete CommitmentsList
+import { WeeklyTasks } from "./components/WeeklyTasks"; // importa componete WeeklyTasks
+import { StatusLegend } from "./components/StatusLegend"; // importa componete StatusLegend
+import { RandomCatBackground } from "./components/RandomCatBackground"; // importa componente para plano de fundo randomizado
 
+// importa a logo com URL dinâmica
 const logo = new URL("./assets/new-logo.webp", import.meta.url).href;
 
 function App() {
+//Estado para controlar a abertura do menu mobile (true = aberto, false = fechado)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#FBF5DF] flex flex-col">
-      <RandomCatBackground /> {/* componente responsável pelo plano de fundo */}
+      <RandomCatBackground /> {/* componente responsável pelo plano de fundo decorativo com imagens de gatos aleatórios */}
+
+      {/* Cabeçalho fixo no topo da página */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center h-16">
+            {/* Navegação principal, visível em telas médias e maiores */}
             <nav className="hidden md:block">
               <ul className="flex items-center justify-center space-x-12">
                 <li>
@@ -36,6 +41,7 @@ function App() {
                     Modelo
                   </a>
                 </li>
+                {/*Link de navegação para rotas internas usando o componente Link do react-router-dom */}
                 <li>
                   <Link
                     to="/criar-planejamento"
@@ -52,6 +58,7 @@ function App() {
                     Visualizar Planejamento
                   </Link>
                 </li>
+                {/* Link âncora para a seção de contato */}
                 <li>
                   <a
                     href="#contato"
@@ -62,6 +69,8 @@ function App() {
                 </li>
               </ul>
             </nav>
+
+            {/* Botão para abrir/fechar menu mobile em telas pequenas */}
             <button
               className="md:hidden text-gray-700"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -73,6 +82,7 @@ function App() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
+                {/* Icone muda dependendo do estado do menu */}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -84,11 +94,12 @@ function App() {
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Menu mobile que aparece somente quando mobileMenuOpen é true */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
             <nav className="px-4 py-4">
               <ul className="space-y-4">
+                {/* Links do menu mobile, fechando o menu ao clicar */}
                 <li>
                   <a
                     href="#sobre"
@@ -139,8 +150,9 @@ function App() {
           </div>
         )}
       </header>
-
+      {/* Conteúdo principal da página, afastado do header pelo padding */}
       <main className="pt-16 flex-grow">
+        {/* Seção "sobre"  */}
         <section id="sobre" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -152,9 +164,11 @@ function App() {
               <div className="h-1 w-32 bg-gradient-to-r from-[#B6926C] to-[#E9D7A5] mx-auto rounded-full mb-16" />
             </div>
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+              {/* Logo */}
               <div className="flex justify-center shrink-0">
                 <img src={logo} className="h-[250px] w-auto object-contain" alt="Logo Sun" />
               </div>
+              {/* Texto explicativo sobre a iniciativa */}
               <article className="flex-1 bg-white rounded-2xl shadow-lg p-8 md:p-12 hover:shadow-xl transition-shadow duration-300">
                 <p className="text-lg text-gray-700 leading-relaxed">
                   A SUN é uma iniciativa criada para apoiar pessoas que estão enfrentando desafios da vida, como ansiedade, depressão, desmotivação ou dificuldades em se organizar.
@@ -165,11 +179,11 @@ function App() {
             </div>
           </div>
         </section>
-        {/* New Hero + Planner Summary Section */}
+        {/* Seção de planejamento semanal */}
         <section id="planejamento-semanal" className="py-0 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="min-h-screen bg-background">
-              {/* Hero Section */}
+              {/* Cabeçalho da seção */}
               <header className="py-16 px-4 animate-fade-in">
                 <div className="max-w-7xl mx-auto text-center">
                   <div className="inline-block mb-4">
@@ -188,18 +202,21 @@ function App() {
                 </div>
               </header>
 
-              {/* Main Content */}
+              {/* conteúdo principal da seção com componentes de planejamento */}
               <main className="px-4 pb-16">
                 <div className="max-w-7xl mx-auto">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-slide-up">
+                    {/* Componente que exibe hábitos da semana */}
                     <HabitTracker />
+                    {/* Componente que exibe compromissos da semana */}
                     <CommitmentsList />
+                    {/* Componente que exibe tarefas da semana */}
                     <WeeklyTasks />
                   </div>
-
+                  {/* Legenda de status para facilitar entendimento */}
                   <StatusLegend />
 
-                  {/* Call to Action Button */}
+                  {/* Botão de chamada para ação para criar um planejamento */}
                   <div className="mt-12 text-center">
                     <a
                       href="/criar-planejamento"
@@ -228,9 +245,10 @@ function App() {
             </div>
           </div>
         </section>
-
+        {/* Seção de contato */}
         <section id="contato" className="pt-8 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
+            {/* Aviso importante para apoio aos usuários */}
             <div className="mb-12 bg-red-50 border-2 border-red-400 rounded-xl p-6 max-w-xl mx-auto">
               <p className="text-red-800 font-semibold text-base leading-relaxed">
                 <span className="block mb-2 text-lg">⚠️ Importante ⚠️</span>
@@ -242,8 +260,9 @@ function App() {
               Contato
             </h2>
             <div className="h-1 w-32 bg-gradient-to-r from-[#B6926C] to-[#E9D7A5] mx-auto rounded-full mb-8" />
-
+            {/* Links para redes sociais e icones */}
             <div className="flex items-center justify-center gap-4">
+              {/* GitHub */}
               <a
                 href="https://github.com/BrendaFigueira8"
                 target="_blank"
@@ -260,7 +279,7 @@ function App() {
                 </svg>
                 GitHub
               </a>
-
+              {/* LinkedIn */}
               <a
                 href="https://www.linkedin.com/in/brenda-figueira/"
                 target="_blank"
@@ -277,7 +296,7 @@ function App() {
                 </svg>
                 LinkedIn
               </a>
-
+              {/* Instagram */}
               <a
                 href="https://www.instagram.com/brendafigueira8"
                 target="_blank"
@@ -298,10 +317,13 @@ function App() {
           </div>
         </section>
       </main>
-
+      
+      {/* Rodapé com logo e direitos autorais */}
       <footer className="bg-[#3C342B] py-8 mt-auto">
         <div className="max-w-7xl mx-auto text-center px-4">
           <div className="flex items-center justify-center space-x-2 mb-4">
+            
+            {/* Logo com outra cor para fazer contraste no rodapé */}
             <img src={logo} className="w-20 h-16 object-contain brightness-0 invert" alt="Logo Sun" />
           </div>
           <p className="text-white">
