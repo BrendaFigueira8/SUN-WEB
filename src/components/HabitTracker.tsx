@@ -8,12 +8,12 @@ export const HabitTracker = () => {
       </div>
 
       <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-        Você pode colocar algo que é fixo na sua rotina, como um uso de um medicamento que não pode esquecer.
+        Você pode colocar algo que faz no seu dia a dia e que é essencial para manter sua vida, como o uso de um medicamento.
       </p>
 
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Como usar: marque o círculo de cada dia com uma determinada cor, dependendo se completou ou não.
+          Instruções: marque o círculo de cada dia com uma determinada cor de acordo com a legenda abaixo.
         </p>
 
         <div className="grid grid-cols-[auto_1fr] items-center gap-4">

@@ -8,12 +8,12 @@ export const CommitmentsList = () => {
       </div>
 
       <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-        No campo de compromissos, será para que você lembre-se e se organize com antecedência.
+       Utilize o campo "compromissos" para colocar compromissos já agendados com outras pessoas.
       </p>
 
       <div className="space-y-6">
         <p className="text-sm text-muted-foreground">
-          Como usar: pode usar o ✓ ou um ✗
+          Instruções: pode usar o ✓ ou um ✗
         </p>
 
         <div className="space-y-3">

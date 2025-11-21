@@ -6,12 +6,12 @@ export const WeeklyTasks = () => {
       </div>
 
       <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-        Aqui quero que você preencha com algo que está procrastinando ou quer se fazer para si mesmo.
+        Preencha com algo relacionado a um objetivo pessoal que gostaria de realizar e está adiando.
       </p>
 
       <div className="space-y-6">
         <p className="text-sm text-muted-foreground">
-          Como usar: marque o círculo de cada dia com uma determinada cor, dependendo se completou ou não.
+          Instruções: marque o círculo de cada dia com uma determinada cor de acordo com a legenda abaixo.
         </p>
 
         <div className="space-y-3">
