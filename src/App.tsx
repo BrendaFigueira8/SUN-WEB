@@ -182,7 +182,7 @@ function App() {
                   <p className="text-base text-[#7C6E65] max-w-2xl mx-auto leading-relaxed">
                     Lembre-se de não ultrapassar seus limites, faça com calma.
                     <br />
-                    Com esses "pequenos" passos te levaram em direção à vida {'<3'}
+                    Esses "pequenos" passos te levaram em direção à vida {'<3'}
                   </p>
                 </div>
               </header>
