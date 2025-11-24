@@ -1,3 +1,15 @@
+    // Função para apagar tarefa da semana
+    const deleteWeeklyTask = (index) => {
+      if (!window.confirm('Deseja apagar esta tarefa da semana?')) return;
+      const newTasks = weeklyTasks.filter((_, i) => i !== index);
+      setWeeklyTasks(newTasks);
+    };
+  // Função para apagar hábito
+  const deleteHabit = (index) => {
+    if (!window.confirm('Deseja apagar este hábito?')) return;
+    const newHabits = habits.filter((_, i) => i !== index);
+    setHabits(newHabits);
+  };
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RandomCatBackground } from "../components/RandomCatBackground";
@@ -190,7 +202,21 @@ export const CreatePlanning = () => {
 
               <div className="space-y-3">
                 {habits.map((habit, habitIndex) => (
-                  <div key={habitIndex} className="grid grid-cols-[1fr_repeat(7,60px)] gap-2 items-center">
+                  <div key={habitIndex} className="grid grid-cols-[40px_1fr_repeat(7,60px)] gap-2 items-center">
+                    <button
+                      onClick={() => deleteHabit(habitIndex)}
+                      title="Apagar hábito"
+                      aria-label="Apagar hábito"
+                      className="w-8 h-8 rounded-sm flex items-center justify-center border-2 text-red-600 hover:bg-red-50 transition-all flex-shrink-0"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                        <path d="M10 11v6" />
+                        <path d="M14 11v6" />
+                        <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                      </svg>
+                    </button>
                     <input
                       type="text"
                       placeholder="Ex: Tomar vitamina B12"
@@ -202,7 +228,6 @@ export const CreatePlanning = () => {
                       }}
                       className="px-3 py-3 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm"
                     />
-                    
                     {days.map((day, dayIndex) => (
                       <div key={dayIndex} className="flex justify-center">
                         <button
@@ -348,6 +373,20 @@ export const CreatePlanning = () => {
             <div className="space-y-3 sm:space-y-4">
               {weeklyTasks.map((task, index) => (
                 <div key={index} className="flex items-center gap-2 sm:gap-3">
+                  <button
+                    onClick={() => deleteWeeklyTask(index)}
+                    title="Apagar tarefa da semana"
+                    aria-label="Apagar tarefa da semana"
+                    className="w-8 h-8 rounded-sm flex items-center justify-center border-2 text-red-600 hover:bg-red-50 transition-all flex-shrink-0"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                      <polyline points="3 6 5 6 21 6" />
+                      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                      <path d="M10 11v6" />
+                      <path d="M14 11v6" />
+                      <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                    </svg>
+                  </button>
                   <input
                     type="text"
                     placeholder="Ex: Sol na varanda"
