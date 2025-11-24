@@ -47,11 +47,17 @@ export const CreatePlanning = () => {
   };
 
   const addCommitment = () => {
-    setCommitments([...commitments, { name: "", completed: false }]);
+    setCommitments([...commitments, { name: "", status: null }]);
   };
 
   const addWeeklyTask = () => {
     setWeeklyTasks([...weeklyTasks, { name: "", color: null }]);
+  };
+
+  const deleteCommitment = (index) => {
+    if (!window.confirm('Deseja apagar este compromisso?')) return;
+    const newCommitments = commitments.filter((_, i) => i !== index);
+    setCommitments(newCommitments);
   };
 
   const savePlanning = () => {
@@ -270,6 +276,21 @@ export const CreatePlanning = () => {
             <div className="space-y-3 sm:space-y-4">
               {commitments.map((commitment, index) => (
                 <div key={index} className="flex items-center gap-2 sm:gap-3">
+                  <button
+                    onClick={() => deleteCommitment(index)}
+                    title="Apagar"
+                    aria-label="Apagar compromisso"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-sm flex items-center justify-center border-2 text-red-600 hover:bg-red-50 transition-all flex-shrink-0 mr-2"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                      <polyline points="3 6 5 6 21 6" />
+                      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                      <path d="M10 11v6" />
+                      <path d="M14 11v6" />
+                      <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                    </svg>
+                  </button>
+
                   <input
                     type="text"
                     placeholder="Ex: Vôlei - terça"
