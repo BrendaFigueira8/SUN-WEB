@@ -5,7 +5,7 @@ import { CommitmentsList } from "./components/CommitmentsList";
 import { WeeklyTasks } from "./components/WeeklyTasks";
 import { StatusLegend } from "./components/StatusLegend";
 import { RandomCatBackground } from "./components/RandomCatBackground";
-
+const meuVideo = new URL("./assets/video.mov", import.meta.url).href;
 const logo = new URL("./assets/new-logo.webp", import.meta.url).href;
 
 function App() {
@@ -140,7 +140,7 @@ function App() {
       </header>
 
       <main className="pt-16 flex-grow">
-        <section id="sobre" className="py-20 px-4 sm:px-6 lg:px-8">
+        <section id="sobre" className="pt-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#3C342B] mb-6 tracking-tight">
@@ -161,7 +161,9 @@ function App() {
                   Cada passo conta, e acreditamos que o progresso, é o que nos move em direção a uma vida mais leve e significativa.
                 </p>
               </article>
+                         
             </div>
+            <video src={meuVideo} autoPlay controls className=" mt-5 w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"/> 
           </div>
         </section>
         {/* New Hero + Planner Summary Section */}
