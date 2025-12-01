@@ -1,15 +1,3 @@
-    // Função para apagar tarefa da semana
-    const deleteWeeklyTask = (index) => {
-      if (!window.confirm('Deseja apagar esta tarefa da semana?')) return;
-      const newTasks = weeklyTasks.filter((_, i) => i !== index);
-      setWeeklyTasks(newTasks);
-    };
-  // Função para apagar hábito
-  const deleteHabit = (index) => {
-    if (!window.confirm('Deseja apagar este hábito?')) return;
-    const newHabits = habits.filter((_, i) => i !== index);
-    setHabits(newHabits);
-  };
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RandomCatBackground } from "../components/RandomCatBackground";
@@ -54,6 +42,7 @@ export const CreatePlanning = () => {
     }
   }, [habits, commitments, weeklyTasks, lastSavedState]);
 
+  // Funções de adição
   const addHabit = () => {
     setHabits([...habits, { name: "", days: Array(7).fill(false) }]);
   };
@@ -66,10 +55,23 @@ export const CreatePlanning = () => {
     setWeeklyTasks([...weeklyTasks, { name: "", color: null }]);
   };
 
+  // Funções de exclusão
+  const deleteHabit = (index) => {
+    if (!window.confirm('Deseja apagar este hábito?')) return;
+    const newHabits = habits.filter((_, i) => i !== index);
+    setHabits(newHabits);
+  };
+
   const deleteCommitment = (index) => {
     if (!window.confirm('Deseja apagar este compromisso?')) return;
     const newCommitments = commitments.filter((_, i) => i !== index);
     setCommitments(newCommitments);
+  };
+
+  const deleteWeeklyTask = (index) => {
+    if (!window.confirm('Deseja apagar esta tarefa da semana?')) return;
+    const newTasks = weeklyTasks.filter((_, i) => i !== index);
+    setWeeklyTasks(newTasks);
   };
 
   const savePlanning = () => {
