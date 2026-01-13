@@ -377,7 +377,7 @@ export const CreatePlanning = () => {
                   </button>
                   <input
                     type="text"
-                    placeholder="Ex: Sol na varanda"
+                    placeholder="Ex: Assistir o pôr do sol na varanda"
                     value={task.name}
                     onChange={(e) => {
                       const newTasks = [...weeklyTasks];
