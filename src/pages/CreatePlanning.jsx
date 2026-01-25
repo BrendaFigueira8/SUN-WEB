@@ -60,6 +60,18 @@ export const CreatePlanning = () => {
     setCommitments(newCommitments);
   };
 
+  const deleteHabit = (index) => {
+    if (!window.confirm('Deseja apagar este hábito?')) return;
+    const newHabits = habits.filter((_, i) => i !== index);
+    setHabits(newHabits);
+  };
+
+  const deleteWeeklyTask = (index) => {
+    if (!window.confirm('Deseja apagar esta tarefa?')) return;
+    const newTasks = weeklyTasks.filter((_, i) => i !== index);
+    setWeeklyTasks(newTasks);
+  };
+
   const savePlanning = () => {
     const planningData = {
       habits,
