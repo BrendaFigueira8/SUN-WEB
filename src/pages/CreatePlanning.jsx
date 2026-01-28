@@ -31,7 +31,16 @@ export const CreatePlanning = () => {
   useEffect(() => {
     const saved = localStorage.getItem('weeklyPlanning');
     if (saved) {
-      setHasSavedData(true);
+      try {
+        const parsedData = JSON.parse(saved);
+        setHabits(parsedData.habits || []);
+        setCommitments(parsedData.commitments || []);
+        setWeeklyTasks(parsedData.weeklyTasks || []);
+        setLastSavedState(JSON.stringify(parsedData));
+        setHasSavedData(true);
+      } catch (error) {
+        console.error('Erro ao recuperar dados do localStorage:', error);
+      }
     }
     
     const tutorialSeen = localStorage.getItem('tutorialSeen');
@@ -251,7 +260,7 @@ export const CreatePlanning = () => {
                         newHabits[habitIndex].name = e.target.value;
                         setHabits(newHabits);
                       }}
-                      className="px-3 py-3 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm"
+                      className="font-medium px-3 py-3 border-2 border-[#8AA87B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9DBF93] text-sm"
                     />
                     {days.map((day, dayIndex) => (
                       <div key={dayIndex} className="flex justify-center">
@@ -350,7 +359,7 @@ export const CreatePlanning = () => {
                       newCommitments[index].name = e.target.value;
                       setCommitments(newCommitments);
                     }}
-                    className="flex-1 px-3 sm:px-4 py-2 border-2 border-[#D68847] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E7A76B] text-sm sm:text-base"
+                    className="font-medium flex-1 px-3 sm:px-4 py-2 border-2 border-[#D68847] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E7A76B] text-sm sm:text-base"
                   />
                   <button
                     onClick={() => {
@@ -421,7 +430,7 @@ export const CreatePlanning = () => {
                       newTasks[index].name = e.target.value;
                       setWeeklyTasks(newTasks);
                     }}
-                    className="flex-1 px-3 sm:px-4 py-2 border-2 border-[#C7B192] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D6C29A] text-sm sm:text-base"
+                    className="font-medium flex-1 px-3 sm:px-4 py-2 border-2 border-[#C7B192] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D6C29A] text-sm sm:text-base"
                   />
                   <button
                     onClick={() => {
