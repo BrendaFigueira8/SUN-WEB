@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RandomCatBackground } from "../components/RandomCatBackground";
+import { HabitTracker } from "../components/HabitTracker";
+import { CommitmentsList } from "../components/CommitmentsList";
+import { WeeklyTasks } from "../components/WeeklyTasks";
 
 const logo = new URL("../assets/new-logo.webp", import.meta.url).href;
 const tutorialVideo = new URL("../assets/tutorial.mp4", import.meta.url).href;
@@ -12,6 +15,8 @@ export const CreatePlanning = () => {
   const [hasSavedData, setHasSavedData] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [lastSavedState, setLastSavedState] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasSeenTutorial, setHasSeenTutorial] = useState(false);
   const navigate = useNavigate();
 
   const days = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
@@ -22,11 +27,16 @@ export const CreatePlanning = () => {
     orange: { bg: '#D68847', label: 'Laranja: adiado' }
   };
 
-  // Verificar se há dados salvos (apenas para controle de estado)
+  // Verificar se há dados salvos e se já viu o tutorial
   useEffect(() => {
     const saved = localStorage.getItem('weeklyPlanning');
     if (saved) {
       setHasSavedData(true);
+    }
+    
+    const tutorialSeen = localStorage.getItem('tutorialSeen');
+    if (tutorialSeen === 'true') {
+      setHasSeenTutorial(true);
     }
   }, []);
 
@@ -169,28 +179,33 @@ export const CreatePlanning = () => {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="text-center mb-8 sm:mb-12">
+        <div className="text-center mb-12 sm:mb-16">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#8E705B] mb-3 sm:mb-4">
             Criar Meu Planejamento
           </h1>
           <p className="text-sm sm:text-base text-[#7C6E65] max-w-2xl mx-auto px-2">
             Organize sua semana de forma personalizada. Adicione seus hábitos, compromissos e tarefas.
           </p>
-          
-          {/* Vídeo Tutorial */}
-          <div className="mt-6 sm:mt-8 flex justify-center">
-            <video 
-              className="rounded-xl shadow-lg border-4 border-[#8E705B]/20"
-              width="640"
-              height="360"
-              controls
-              style={{ maxWidth: '100%', height: 'auto' }}
-              src={tutorialVideo}
-            >
-              Seu navegador não suporta o elemento de vídeo.
-            </video>
-          </div>
         </div>
+
+        {/* Seção Tutorial */}
+        <section className="bg-gradient-to-b from-[#FBF5DF] to-white rounded-2xl border-4 border-[#B6926C] p-8 sm:p-10 mb-12 shadow-lg">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#8E705B] mb-3">
+              Como Funciona?
+            </h2>
+            <p className="text-[#7C6E65] max-w-xl mx-auto">
+              Aqui está um exemplo de como você pode organizar seus hábitos, compromissos e tarefas semanais:
+            </p>
+          </div>
+          
+          {/* Componentes Tutorial */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <HabitTracker />
+            <CommitmentsList />
+            <WeeklyTasks />
+          </div>
+        </section>
 
         <div className="space-y-8">
           {/* Hábitos Diários */}
@@ -549,6 +564,71 @@ export const CreatePlanning = () => {
           </div>
         </div>
       </main>
+
+      {/* Botão Flutuante com Animação */}
+      <div className="fixed bottom-6 right-6 z-40">
+        {/* Círculo Pulsante de Fundo - Apenas se não viu o tutorial */}
+        {!hasSeenTutorial && (
+          <div className="absolute inset-0 animate-ping bg-[#B6926C] rounded-full opacity-75"></div>
+        )}
+        
+        {/* Botão Principal */}
+        <button
+          onClick={() => {
+            setIsModalOpen(true);
+            if (!hasSeenTutorial) {
+              localStorage.setItem('tutorialSeen', 'true');
+              setHasSeenTutorial(true);
+            }
+          }}
+          className={`relative w-14 h-14 bg-[#B6926C] hover:bg-[#8E705B] text-white rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center ${
+            !hasSeenTutorial ? 'hover:scale-110' : ''
+          }`}
+          title="Assistir Tutorial"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Modal Tutorial */}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            className="bg-white rounded-xl shadow-2xl max-w-2xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header Modal */}
+            <div className="flex items-center justify-between bg-[#B6926C] text-white p-6 rounded-t-xl">
+              <h2 className="text-2xl font-bold">Tutorial - Como Usar</h2>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="w-8 h-8 flex items-center justify-center hover:bg-white/20 rounded-full transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Video Content */}
+            <div className="p-6">
+              <video
+                className="w-full rounded-lg"
+                controls
+                src={tutorialVideo}
+              >
+                Seu navegador não suporta o elemento de vídeo.
+              </video>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
