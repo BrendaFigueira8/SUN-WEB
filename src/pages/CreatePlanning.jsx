@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RandomCatBackground } from "../components/RandomCatBackground";
 
 const logo = new URL("../assets/new-logo.webp", import.meta.url).href;
+const tutorialVideo = new URL("../assets/tutorial.mp4", import.meta.url).href;
 
 export const CreatePlanning = () => {
   const [habits, setHabits] = useState([{ name: "", days: Array(7).fill(null) }]);
@@ -21,16 +22,11 @@ export const CreatePlanning = () => {
     orange: { bg: '#D68847', label: 'Laranja: adiado' }
   };
 
-  // Carregar do localStorage ao montar o componente
+  // Verificar se há dados salvos (apenas para controle de estado)
   useEffect(() => {
     const saved = localStorage.getItem('weeklyPlanning');
     if (saved) {
-      const data = JSON.parse(saved);
-      if (data.habits) setHabits(data.habits);
-      if (data.commitments) setCommitments(data.commitments);
-      if (data.weeklyTasks) setWeeklyTasks(data.weeklyTasks);
       setHasSavedData(true);
-      setLastSavedState(JSON.stringify({ habits: data.habits, commitments: data.commitments, weeklyTasks: data.weeklyTasks }));
     }
   }, []);
 
@@ -180,6 +176,20 @@ export const CreatePlanning = () => {
           <p className="text-sm sm:text-base text-[#7C6E65] max-w-2xl mx-auto px-2">
             Organize sua semana de forma personalizada. Adicione seus hábitos, compromissos e tarefas.
           </p>
+          
+          {/* Vídeo Tutorial */}
+          <div className="mt-6 sm:mt-8 flex justify-center">
+            <video 
+              className="rounded-xl shadow-lg border-4 border-[#8E705B]/20"
+              width="640"
+              height="360"
+              controls
+              style={{ maxWidth: '100%', height: 'auto' }}
+              src={tutorialVideo}
+            >
+              Seu navegador não suporta o elemento de vídeo.
+            </video>
+          </div>
         </div>
 
         <div className="space-y-8">
